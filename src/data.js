@@ -9,7 +9,7 @@ export const projects = [
   {
     title: "FIARO - Venture Capital",
     description: "Data analyst and web developer for FIARO, a venture capital firm in Madagascar. I worked on data analysis, web development, and project management to support the firm's investment strategies and portfolio management.",
-    src: "Fiaro venture capital.png",
+    src: "Fiaro-venture-capital.png",
     link: "https://joel10carto.my.canva.site/",
     color: "#ffffff"
   },
@@ -28,7 +28,7 @@ export const projects = [
   {
     title: "Quincaillerie Ambodivoara - Hardware Store",
     description: "Quincaillerie Ambodivoara is a hardware store that offers a wide range of tools, materials, and equipment for construction and home improvement projects. It provides quality products and expert advice to help customers with their DIY and professional needs.",
-    src: "Quincaillerie ambodivoara.mp4",
+    video: "Quincaillerie-ambodivoara.mp4",
     color: "#dfc45b"
   },
 ]

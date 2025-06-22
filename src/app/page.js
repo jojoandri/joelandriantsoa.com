@@ -37,8 +37,18 @@ export default function Home() {
       <Landing />
       <Description />
       <div className={styles.cardContainer}>
-        {projects.map((project, i) => (
-          <Card key={`p_${i}`} {...project} i={i} />
+        {projects.map((project, index) => (
+          <Card 
+            key={`p_${index}`} 
+            title={project.title}
+            description={project.description}
+            src={project.src}
+            video={project.video}
+            link={project.link}
+            color={project.color}
+            range={project.range || [0, 1]}
+            targetScale={project.targetScale || 1}
+          />
         ))}
       </div>
       <SlidingImages />

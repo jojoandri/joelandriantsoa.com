@@ -4,7 +4,7 @@ import styles from './style.module.scss';
 import { useTransform, motion, useScroll } from 'framer-motion';
 import { useRef, useEffect } from 'react';
 
-const Card = ({ i, title, description, src, video, link, color, range = [0, 1], targetScale = 1 }) => {
+const Card = ({ i , title, description, src, video, link, color, range = [0, 1], targetScale = 1 }) => {
   const container = useRef(null);
   const videoRef = useRef(null);
   const lastTimeRef = useRef(0); // pour mémoriser le temps de pause
