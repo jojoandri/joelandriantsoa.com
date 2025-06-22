@@ -46,6 +46,7 @@
             font-size: 12px;
             text-decoration: underline;
             cursor: pointer;
+            
           }
         }
       }
@@ -60,6 +61,13 @@
           width: 100%;
           height: 100%;
         }
+        .video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: inherit;
+        }
+        
         img{
           object-fit: cover;
         }
