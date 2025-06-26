@@ -20,11 +20,7 @@ export default function Index() {
                 </p>
                 <motion.p variants={opacity} animate={isInView ? "open" : "closed"}>Data is the new oil of the 21st century — and I turn it into strategic fuel. With a passion for analytics and a strong academic foundation, I uncover deep insights to drive smarter marketing decisions and impactful business growth.
                 </motion.p>
-                <div data-scroll data-scroll-speed={0.1}>
-                    <Rounded className={styles.button}>
-                        <p>About me</p>
-                    </Rounded>
-                </div>
+                
             </div>
         </div>
     )
