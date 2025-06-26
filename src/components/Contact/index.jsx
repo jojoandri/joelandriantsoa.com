@@ -40,10 +40,10 @@ export default function Contact() {
                 </div>
                 <div className={styles.nav}>
                         <Rounded>
-                            <p>joel.andriantsoa@esti.mg</p>
+                            <p>hello@joelandriantsoa.com</p>
                         </Rounded>
                         <Rounded>
-                            <p>+31 6 27 84 74 30</p>
+                            <p>+261 34 94 106 08</p>
                         </Rounded>
                 </div>
                 <div className={styles.info}>
