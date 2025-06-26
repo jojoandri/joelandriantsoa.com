@@ -1,14 +1,44 @@
-.link{
+.link {
     position: relative;
     display: flex;
     align-items: center;
-    
-    .indicator{
+
+    .indicator {
         width: 10px;
         height: 10px;
         background-color: white;
         border-radius: 50%;
         position: absolute;
         left: -30px;
+    }
+
+    // Desktop (≥1200px)
+    @media (min-width: 1200px) {
+        font-size: 1.2rem;
+        padding: 0 24px;
+
+        .indicator {
+            left: -30px;
+        }
+    }
+
+    // Tablette (810px)
+    @media (max-width: 1199px) and (min-width: 810px) {
+        font-size: 1rem;
+        padding: 0 16px;
+
+        .indicator {
+            left: -24px;
+        }
+    }
+
+    // Téléphone (≤809px)
+    @media (max-width: 809px) {
+        font-size: 0.95rem;
+        padding: 0 8px;
+
+        .indicator {
+            left: -18px;
+        }
     }
 }
