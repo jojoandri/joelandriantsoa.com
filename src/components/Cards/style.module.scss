@@ -4,24 +4,24 @@
   align-items: center;
   justify-content: center;
   position: sticky;
-  top: 0px;
+  top: 0;
   margin-top: 300px;
 
   .card {
     display: flex;
     flex-direction: column;
     position: relative;
-    top: -25%;
-    height: 500px;
-    width: 1000px;
+    top: -30%;
+    height: 503px;
+    width: 1200px;
     border-radius: 25px;
-    padding: 50px;
+    padding: 120px;
     transform-origin: top;
 
     h2 {
       text-align: center;
-      margin: 0px;
-      font-size: 28px;
+      margin: 0;
+      font-size: 32px;
     }
 
     .body {
@@ -63,24 +63,102 @@
         height: 100%;
         border-radius: 25px;
         overflow: hidden;
+      
 
         .inner {
           width: 100%;
           height: 100%;
         }
 
-        .video {
+        .video, img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           border-radius: inherit;
         }
+      }
+    }
+  }
+}
 
-        img {
-          object-fit: cover;
+/* 📱 Téléphone */
+@media (max-width: 480px) {
+  .cardContainer {
+    margin-top: 150px;
+    .card {
+      width: 390px;
+      height: auto;
+      padding: 20px;
+      top: 0;
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .body {
+        flex-direction: column;
+        gap: 20px;
+
+        .description {
+          width: 100%;
+          top: 0;
+          margin-top: 0;
+          p {
+            font-size: 14px;
+            &::first-letter {
+              font-size: 22px;
+            }
+          }
+
+          span a {
+            font-size: 11px;
+          }
+        }
+
+        .imageContainer {
+          width: 100%;
+          height: 200px;
         }
       }
     }
   }
+}
 
+/* 📱 Tablette */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .cardContainer {
+    margin-top: 200px;
+    .card {
+      width: 810px;
+      height: auto;
+      padding: 30px;
+      top: 0;
+
+      h2 {
+        font-size: 26px;
+      }
+
+      .body {
+        flex-direction: column;
+        gap: 30px;
+
+        .description {
+          width: 100%;
+          top: 0;
+          margin-top: 0;
+          p {
+            font-size: 15px;
+            &::first-letter {
+              font-size: 24px;
+            }
+          }
+        }
+
+        .imageContainer {
+          width: 100%;
+          height: 300px;
+        }
+      }
+    }
+  }
 }

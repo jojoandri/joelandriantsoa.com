@@ -21,9 +21,11 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
   useEffect(() => {
     if (!videoRef.current || !video) return;
 
+    const currentVideo = videoRef.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const vid = videoRef.current;
+        const vid = currentVideo;
 
         if (entry.isIntersecting) {
           // Reprendre là où on s'était arrêté
@@ -40,10 +42,10 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
       }
     );
 
-    observer.observe(videoRef.current);
+    if (currentVideo) observer.observe(currentVideo);
 
     return () => {
-      if (videoRef.current) observer.unobserve(videoRef.current);
+      if (currentVideo) observer.unobserve(currentVideo);
     };
   }, [video]);
 
@@ -63,7 +65,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
           </div>
 
           <div className={styles.imageContainer}>
-            <motion.div className={styles.inner} style={{ scale: imageScale }}>
+            <motion.div className={styles.inner}>
               {video ? (
                 <video
                   ref={videoRef}
