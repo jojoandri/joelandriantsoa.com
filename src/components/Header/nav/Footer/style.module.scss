@@ -5,5 +5,29 @@
     font-size: 12px;
     gap: 40px;
 
-    
+    // Desktop (≥1200px)
+    @media (min-width: 1200px) {
+        font-size: 14px;
+        gap: 60px;
+    }
+
+    // Tablette (810px)
+    @media (max-width: 1199px) and (min-width: 811px) {
+        font-size: 13px;
+        gap: 30px;
+    }
+
+    // Téléphone (≤810px)
+    @media (max-width: 810px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        font-size: 12px;
+    }
+
+    // Petit téléphone (≤390px)
+    @media (max-width: 400px) {
+        font-size: 11px;
+        gap: 10px;
+    }
 }
