@@ -1,3 +1,4 @@
+
 import styles from './style.module.scss';
 import Image from 'next/image';
 import Rounded from '../../common/RoundedButton';
