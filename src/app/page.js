@@ -14,20 +14,30 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect( () => {
-    (
-      async () => {
-          const LocomotiveScroll = (await import('locomotive-scroll')).default
-          new LocomotiveScroll();
+  useEffect(() => {
+    let locoScroll = null;
+    let isMounted = true;
 
-          setTimeout( () => {
-            setIsLoading(false);
-            document.body.style.cursor = 'default'
-            window.scrollTo(0,0);
-          }, 2000)
+    (async () => {
+      const LocomotiveScroll = (await import('locomotive-scroll')).default;
+      locoScroll = new LocomotiveScroll();
+
+      setTimeout(() => {
+        if (isMounted) {
+          setIsLoading(false);
+          document.body.style.cursor = 'default';
+          window.scrollTo(0, 0);
+        }
+      }, 2000);
+    })();
+
+    return () => {
+      isMounted = false;
+      if (locoScroll && typeof locoScroll.destroy === 'function') {
+        locoScroll.destroy();
       }
-    )()
-  }, [])
+    };
+  }, []);
 
   return (
     <main className={styles.main}>
