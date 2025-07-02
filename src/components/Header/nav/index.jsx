@@ -3,7 +3,6 @@ import styles from './style.module.scss';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { menuSlide } from '../animation';
-import Link from './Link';
 import Curve from './Curve';
 // Removed unused Footer import
 
@@ -38,26 +37,26 @@ export default function Index() {
       animate="enter" 
       exit="exit" 
       className={styles.menu}
-      >
-       <div className={styles.body}>
-            <div onMouseLeave={() => {setSelectedIndicator(pathname)}} className={styles.nav}>
-                    <div className={styles.header}>
-                        <p>Navigation</p>
-                    </div>
-                    {
-                      navItems.map( (data, index) => {
-                        return <Link 
-                        key={index} 
-                        data={{...data, index}} 
-                        isActive={selectedIndicator == data.href} 
-                        setSelectedIndicator={setSelectedIndicator}>
-                        </Link>
-                      })
-                    }
-            </div>
-            
+    >
+      <div className={styles.body}>
+        <div onMouseLeave={() => {setSelectedIndicator(pathname)}} className={styles.nav}>
+          <div className={styles.header}>
+            <p>Navigation</p>
+          </div>
+          {
+            navItems.map((data, index) => (
+              <div
+                key={index}
+                className={selectedIndicator === data.href ? styles.activeNavItem : styles.navItem}
+                onMouseEnter={() => setSelectedIndicator(data.href)}
+              >
+                {data.title}
+              </div>
+            ))
+          }
         </div>
-        <Curve />
+      </div>
+      <Curve />
     </motion.div>
   )
 }

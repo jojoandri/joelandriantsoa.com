@@ -1,7 +1,7 @@
 .header{
     position: absolute;
     display: flex;
-    z-index: 1;
+    z-index: 1000; // 🚀 Z-INDEX AUGMENTÉ pour le header principal
     top: 0;
     color: white;
     padding: 35px;
@@ -10,13 +10,23 @@
     font-weight: 300;
     box-sizing: border-box;
     align-items: center;
+    // 🚀 OPTIMISATIONS CRITIQUES POUR LA PERFORMANCE
+    will-change: auto; // Laisse le navigateur optimiser
+    contain: layout style; // Limite les repaints/reflows
+    transform: translateZ(0); // Force hardware acceleration
+    backface-visibility: hidden; // Prévient les bugs visuels
     
     .logo{
         display: flex;
         cursor: pointer;
+        // 🚀 OPTIMISATIONS POUR LE LOGO
+        will-change: transform; // Optimise les animations hover
+        transform: translateZ(0); // Hardware acceleration
+        
         p{
             margin: 0px;
-            transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+            transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1); // Légèrement plus rapide
+            will-change: transform; // Optimise les animations
         }
         .name{
             display: flex;
@@ -47,10 +57,10 @@
                 .codeBy{
                     transform: translateX(-100%);
                 }
-                .dennis{
+                .joel{
                     transform: translateX(-65px);
                 }
-                .snellenberg{
+                .andriantsoa{
                     transform: translateX(-85px);
                 }
             }
@@ -59,6 +69,9 @@
     .nav{
         display: flex;
         align-items: center;
+        // 🚀 OPTIMISATIONS GLOBALES POUR LA NAVIGATION
+        contain: layout; // Optimise les repaints/reflows
+        will-change: auto; // Laisse le navigateur optimiser
 
         .el{
             display: flex;
@@ -67,6 +80,11 @@
             z-index: 1;
             padding: 15px;
             cursor: pointer;
+            // 🚀 OPTIMISATIONS PERFORMANCE CRITIQUES
+            will-change: transform; // Optimise les animations hover
+            transform: translateZ(0); // Force hardware acceleration
+            backface-visibility: hidden; // Évite les bugs visuels
+            
             &:hover{
                 .indicator{
                     transform: scale(1);
@@ -81,43 +99,456 @@
                 background-color: white;
                 border-radius: 50%;
                 transform: scale(0) translateX(-50%);
-                transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
+                transition: transform 0.15s cubic-bezier(0.76, 0, 0.24, 1); // Plus rapide
+                will-change: transform; // Optimise l'animation
             }
         }
         a{
             cursor: pointer;
+            // 🚀 OPTIMISATIONS POUR LES LIENS
+            will-change: auto;
+            -webkit-tap-highlight-color: transparent; // Supprime le highlight sur mobile
+            transition: opacity 0.1s ease; // Transition rapide pour le feedback visuel
+            
+            // Feedback visuel immédiat lors du clic
+            &:active {
+                opacity: 0.7;
+                transition: opacity 0.05s ease;
+            }
+        }
+
+        // Style spécial pour le bouton Home seul (page Background)
+        &:has(.el:only-child) {
+            .el {
+                padding: 18px 25px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 25px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+                
+                &:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                }
+                
+                a {
+                    font-weight: 500;
+                    font-size: 1.1rem;
+                    color: white;
+                    text-decoration: none;
+                }
+                
+                .indicator {
+                    display: none; // Masquer l'indicateur pour le bouton Home
+                }
+            }
+        }
+
+        // Menu mobile simple (OPTIMISÉ POUR LA PERFORMANCE)
+        .mobileNav {
+            position: relative;
+            z-index: 9999; // 🚀 Z-INDEX ÉLEVÉ pour le conteneur mobile
+            
+            .mobileNavToggle {
+                background: none;
+                border: none;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                cursor: pointer;
+                padding: 5px;
+                z-index: 10000; // 🚀 Z-INDEX TRÈS ÉLEVÉ pour le bouton toggle
+                position: relative;
+                // 🚀 OPTIMISATIONS DE PERFORMANCE MAJEURES
+                will-change: transform;
+                -webkit-tap-highlight-color: transparent;
+                transform: translateZ(0); // Force hardware acceleration
+                backface-visibility: hidden; // Évite les bugs de rendu
+                
+                span {
+                    width: 20px;
+                    height: 2px;
+                    background-color: white;
+                    transition: all 0.1s ease; // Ultra-rapide pour réactivité immédiate
+                    will-change: transform, opacity;
+                    transform: translateZ(0); // Hardware acceleration
+                }
+                
+                // Feedback tactile instantané
+                &:active {
+                    transform: scale(0.95) translateZ(0);
+                    transition: transform 0.05s ease; // Quasi-instantané
+                }
+            }
+            
+            .mobileNavDropdown {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98); // 🚀 FOND PLUS OPAQUE pour meilleure visibilité
+                border-radius: 8px;
+                padding: 10px;
+                margin-top: 10px;
+                min-width: 120px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); // 🚀 OMBRE PLUS PRONONCÉE
+                border: 1px solid rgba(255, 255, 255, 0.1); // 🚀 BORDURE SUBTILE
+                backdrop-filter: blur(10px); // 🚀 EFFET BLUR pour distinction
+                z-index: 9999; // 🚀 Z-INDEX TRÈS ÉLEVÉ pour être au premier plan
+                // 🚀 OPTIMISATIONS PERFORMANCE CRITIQUES
+                will-change: transform, opacity;
+                transform: translateZ(0);
+                backface-visibility: hidden;
+                contain: layout style; // Optimisation du repaint
+                
+                a {
+                    display: block;
+                    color: white;
+                    text-decoration: none;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    transition: background-color 0.05s ease; // Réaction quasi-instantanée
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    // Optimisations tactiles pour mobile
+                    -webkit-tap-highlight-color: transparent;
+                    user-select: none;
+                    will-change: background-color, transform;
+                    transform: translateZ(0);
+                    
+                    &:hover, &:active {
+                        background-color: rgba(255, 255, 255, 0.15);
+                    }
+                    
+                    // 🚀 FEEDBACK TACTILE INSTANTANÉ sur mobile
+                    &:active {
+                        transform: scale(0.98) translateZ(0);
+                        background-color: rgba(255, 255, 255, 0.2);
+                        transition: all 0.02s ease; // Pratiquement instantané
+                    }
+                }
+            }
         }
     } 
-}
-.headerButtonContainer {
-    transform: scale(0);
-    position: fixed;
-    right: 0px;
-    z-index: 4;
 
-    .button {
-        position: relative;
-        margin: 40px;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background-color: rgb(41, 41, 41);;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 14px;
-        font-weight: 500;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: background-color 0.3s;
+    // 🎯 RESPONSIVE DESIGN PROGRESSIF
+    // ================================
+
+    // Large screens (1200px+) : Design par défaut optimisé
+
+    // Medium-large screens (1025px - 1199px)
+    @media (max-width: 1199px) {
+        padding: 30px;
         
+        .logo {
+            .name {
+                p {
+                    font-size: 0.95rem;
+                }
+                
+                // Ajustement responsive pour le positionnement
+                p:nth-of-type(3) {
+                    left: 110px; // Réduit pour écrans moyens-larges
+                }
+            }
+            
+            // Ajustement des animations hover pour écrans moyens-larges
+            &:hover {
+                .name {
+                    .joel {
+                        transform: translateX(-60px); // Ajusté
+                    }
+                    .andriantsoa {
+                        transform: translateX(-80px); // Ajusté
+                    }
+                }
+            }
+        }
+        
+        .nav {
+            .el {
+                padding: 12px;
+                a {
+                    font-size: 0.95rem;
+                }
+            }
+            
+            // Ajustement du bouton Home
+            &:has(.el:only-child) .el {
+                padding: 16px 22px;
+                font-size: 1rem;
+            }
+        }
     }
-    
 
-    .label {
-        z-index: 1;
+    // Tablets landscape (769px - 1024px)
+    @media (max-width: 1024px) {
+        padding: 25px;
+        
+        .logo {
+            .name {
+                p {
+                    font-size: 0.9rem;
+                }
+                
+                // Ajustement responsive pour tablettes
+                p:nth-of-type(3) {
+                    left: 100px; // Réduit pour tablettes
+                }
+            }
+            
+            // Ajustement des animations hover pour tablettes
+            &:hover {
+                .name {
+                    .joel {
+                        transform: translateX(-55px); // Ajusté pour tablettes
+                    }
+                    .andriantsoa {
+                        transform: translateX(-75px); // Ajusté pour tablettes
+                    }
+                }
+            }
+        }
+        
+        .nav {
+            .el {
+                padding: 10px;
+                a {
+                    font-size: 0.9rem;
+                }
+            }
+            
+            // Ajustement du bouton Home pour tablettes
+            &:has(.el:only-child) .el {
+                padding: 14px 20px;
+                font-size: 0.95rem;
+            }
+        }
+    }
+
+    // Mobile landscape et petites tablettes (481px - 768px)
+    @media (max-width: 768px) {
+        padding: 20px;
+        
+        .logo {
+            .name {
+                p {
+                    font-size: 0.75rem; // Taille réduite pour garder les proportions
+                }
+                
+                // Maintenir les proportions du desktop avec une échelle réduite
+                p:nth-of-type(3) {
+                    left: 90px; // Proportionnel au desktop (120px * 0.75)
+                }
+            }
+            
+            // REPRODUCTION DE L'ANIMATION DESKTOP avec échelle réduite
+            &:hover {
+                .name {
+                    padding-right: 25px; // Proportionnel au desktop (30px * 0.83)
+                    .codeBy {
+                        transform: translateX(-100%); // Identique au desktop
+                    }
+                    .joel {
+                        transform: translateX(-50px); // Proportionnel au desktop (-65px * 0.77)
+                    }
+                    .andriantsoa {
+                        transform: translateX(-65px); // Proportionnel au desktop (-85px * 0.76)
+                    }
+                }
+            }
+        }
+        
+        // Navigation reste visible mais en version mobile
+        .nav {
+            .mobileNav {
+                .mobileNavToggle {
+                    width: 25px;
+                    height: 25px;
+                    
+                    span {
+                        width: 18px;
+                        height: 2px;
+                        transition: all 0.1s ease; // Transition ultra-rapide
+                    }
+                }
+                
+                .mobileNavDropdown {
+                    min-width: 100px;
+                    
+                    a {
+                        font-size: 0.85rem;
+                        padding: 6px 10px;
+                        transition: none; // Réaction instantanée pour une UX optimale
+                        
+                        &:active {
+                            transform: scale(0.96);
+                            background-color: rgba(255, 255, 255, 0.25); // Feedback visuel plus marqué
+                            transition: all 0.02s ease; // Pratiquement instantané
+                        }
+                    }
+                }
+            }
+            
+            // Le bouton Home devient plus compact sur mobile
+            &:has(.el:only-child) .el {
+                padding: 12px 18px;
+                font-size: 0.9rem;
+                margin-right: 10px; // Espacement avec le bouton MENU
+            }
+        }
+    }
+
+    // Mobile portrait (320px - 480px)
+    @media (max-width: 480px) {
+        padding: 15px;
+        
+        .logo {
+            .copyright {
+                font-size: 0.9rem;
+            }
+            
+            .name {
+                margin-left: 3px;
+                
+                p {
+                    font-size: 0.7rem; // Taille encore plus réduite pour mobile portrait
+                }
+                
+                // Proportions du desktop adaptées au mobile portrait
+                p:nth-of-type(3) {
+                    left: 80px; // Proportionnel au desktop (120px * 0.67)
+                }
+            }
+            
+            // REPRODUCTION EXACTE DE L'ANIMATION DESKTOP (échelle mobile)
+            &:hover {
+                .name {
+                    padding-right: 20px; // Proportionnel au desktop (30px * 0.67)
+                    .codeBy {
+                        transform: translateX(-100%); // Identique au desktop
+                    }
+                    .joel {
+                        transform: translateX(-45px); // Proportionnel au desktop (-65px * 0.69)
+                    }
+                    .andriantsoa {
+                        transform: translateX(-58px); // Proportionnel au desktop (-85px * 0.68)
+                    }
+                }
+            }
+        }
+        
+        .nav {
+            .mobileNav {
+                .mobileNavToggle {
+                    width: 22px;
+                    height: 22px;
+                    
+                    span {
+                        width: 16px;
+                        height: 1.5px;
+                        transition: all 0.05s ease; // Instantané
+                    }
+                }
+                
+                .mobileNavDropdown {
+                    min-width: 90px;
+                    
+                    a {
+                        font-size: 0.8rem;
+                        padding: 5px 8px;
+                        transition: none; // Pas de transition = réaction immédiate
+                        
+                        &:active {
+                            transform: scale(0.94);
+                            background-color: rgba(255, 255, 255, 0.3); // Feedback encore plus visible
+                            transition: all 0.01s ease; // Quasi-instantané
+                        }
+                    }
+                }
+            }
+            
+            .el {
+                // Ajustements spécifiques pour le bouton Home en mode portrait
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    }
+
+    // Très petits écrans (max 360px)
+    @media (max-width: 360px) {
+        padding: 12px;
+        
+        .logo {
+            .copyright {
+                font-size: 0.85rem;
+            }
+            
+            .name {
+                margin-left: 2px;
+                
+                p {
+                    font-size: 0.65rem; // Taille très réduite pour très petits écrans
+                }
+                
+                // Proportions du desktop pour très petits écrans
+                p:nth-of-type(3) {
+                    left: 70px; // Proportionnel au desktop (120px * 0.58)
+                }
+            }
+            
+            // REPRODUCTION DESKTOP POUR TRÈS PETITS ÉCRANS
+            &:hover {
+                .name {
+                    padding-right: 18px; // Proportionnel au desktop (30px * 0.6)
+                    .codeBy {
+                        transform: translateX(-100%); // Identique au desktop
+                    }
+                    .joel {
+                        transform: translateX(-38px); // Proportionnel au desktop (-65px * 0.58)
+                    }
+                    .andriantsoa {
+                        transform: translateX(-50px); // Proportionnel au desktop (-85px * 0.59)
+                    }
+                }
+            }
+        }
+        
+        .nav {
+            .mobileNav {
+                .mobileNavToggle {
+                    width: 20px;
+                    height: 20px;
+                    
+                    span {
+                        width: 14px;
+                        height: 1.5px;
+                        transition: none; // Pas de transition sur très petits écrans
+                    }
+                }
+                
+                .mobileNavDropdown {
+                    min-width: 80px;
+                    
+                    a {
+                        font-size: 0.75rem;
+                        padding: 4px 6px;
+                        transition: none; // Réaction immédiate
+                        
+                        &:active {
+                            transform: scale(0.92);
+                            background-color: rgba(255, 255, 255, 0.35); // Feedback très visible
+                            transition: none; // Aucune transition pour une réactivité maximale
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

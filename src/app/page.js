@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion';
 import Preloader from '../components/Preloader';
 import Landing from '../components/Landing';
-import Card from '../components/Cards';
+import CardsContainer from '../components/CardsContainer';
 import { projects } from '../data';
 import Description from '../components/Description';
-import SlidingImages from '../components/SlidingImages';
 import Contact from '../components/Contact';
 
 export default function Home() {
@@ -15,27 +14,20 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let locoScroll = null;
     let isMounted = true;
 
-    (async () => {
-      const LocomotiveScroll = (await import('locomotive-scroll')).default;
-      locoScroll = new LocomotiveScroll();
-
-      setTimeout(() => {
-        if (isMounted) {
-          setIsLoading(false);
-          document.body.style.cursor = 'default';
-          window.scrollTo(0, 0);
-        }
-      }, 2000);
-    })();
+    // Désactiver LocomotiveScroll pour préserver le scroll naturel
+    // et éviter les conflits avec le scroll snap des cartes
+    setTimeout(() => {
+      if (isMounted) {
+        setIsLoading(false);
+        document.body.style.cursor = 'default';
+        window.scrollTo(0, 0);
+      }
+    }, 2000);
 
     return () => {
       isMounted = false;
-      if (locoScroll && typeof locoScroll.destroy === 'function') {
-        locoScroll.destroy();
-      }
     };
   }, []);
 
@@ -46,22 +38,7 @@ export default function Home() {
       </AnimatePresence>
       <Landing />
       <Description />
-      <div className={styles.cardContainer}>
-        {projects.map((project, index) => (
-          <Card 
-            key={`p_${index}`} 
-            title={project.title}
-            description={project.description}
-            src={project.src}
-            video={project.video}
-            link={project.link}
-            color={project.color}
-            range={project.range || [0, 1]}
-            targetScale={project.targetScale || 1}
-          />
-        ))}
-      </div>
-      <SlidingImages />
+      <CardsContainer projects={projects} />
       <Contact />
     </main>
   )

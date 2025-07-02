@@ -1,22 +1,45 @@
 'use client';
 import Image from 'next/image';
 import styles from './style.module.scss';
-import { useTransform, motion, useScroll } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { useScroll } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 
 
-const Card = ({ i , title, description, src, video, link, color, range = [0, 1], targetScale = 1 }) => {
+const Card = ({ i , title, description, src, video, link, color, range = [0, 1], targetScale = 1, isLastCard = false }) => {
   const container = useRef(null);
   const videoRef = useRef(null);
   const lastTimeRef = useRef(0); // pour mémoriser le temps de pause
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  // Détecter la taille de l'écran
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 480);
+      setIsTablet(window.innerWidth > 480 && window.innerWidth <= 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start end', 'start start']
   });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
-  const scale = useTransform(scrollYProgress, range, [1, targetScale]);
+  // Désactiver les animations de parallax pour un scroll précis
+  // const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
+  // const scale = useTransform(
+  //   scrollYProgress, 
+  //   range, 
+  //   [1, isMobile ? 0.95 : targetScale]
+  // );
+  
+  // Garder les cartes statiques pour un scroll précis
+  const imageScale = 1;
+  const scale = 1;
 
   // ⚙️ Gérer l'affichage/lecture de la vidéo selon scroll
   useEffect(() => {
@@ -31,7 +54,9 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
         if (entry.isIntersecting) {
           // Reprendre là où on s'était arrêté
           vid.currentTime = lastTimeRef.current || 0;
-          vid.play();
+          if (!isMobile) { // Éviter l'autoplay sur mobile pour économiser la batterie
+            vid.play();
+          }
         } else {
           // Sauvegarder le moment avant de sortir
           lastTimeRef.current = vid.currentTime;
@@ -39,7 +64,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
         }
       },
       {
-        threshold: 0.6, // visible à 60% minimum
+        threshold: isMobile ? 0.3 : 0.6, // Seuil plus bas sur mobile
       }
     );
 
@@ -48,25 +73,33 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
     return () => {
       if (currentVideo) observer.unobserve(currentVideo);
     };
-  }, [video]);
+  }, [video, isMobile]);
 
   return (
-    <div ref={container} className={styles.cardContainer}>
-      <motion.div 
-        style={{ backgroundColor: color, scale, top: `calc(-5vh + ${i * 25}px)` }} 
+    <div ref={container} className={`${styles.cardContainer} ${isLastCard ? styles.lastCard : ''}`}>
+      <div 
+        style={{ 
+          backgroundColor: color,
+          // Supprimer les animations de scale et de position pour un scroll précis
+        }} 
         className={styles.card}
       >
         <h2>{title}</h2>
         <div className={styles.body}>
           <div className={styles.description}>
             <p>{description}</p>
-            <a href={link} target="_blank" rel="noopener noreferrer" className={styles.linkSpan}>
-              <span>See more</span>
-            </a>
+            {link && (
+              <a href={link} target="_blank" rel="noopener noreferrer" className={styles.linkSpan}>
+                <span>See more</span>
+              </a>
+            )}
           </div>
 
           <div className={styles.imageContainer}>
-            <motion.div className={styles.inner}>
+            <div 
+              className={styles.inner}
+              // Supprimer l'animation d'image pour un scroll précis
+            >
               {video ? (
                 <video
                   ref={videoRef}
@@ -74,18 +107,22 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
                   muted
                   playsInline
                   className={styles.video}
+                  controls={isMobile} // Ajouter les contrôles sur mobile
+                  preload={isMobile ? "metadata" : "auto"} // Charger moins de données sur mobile
                 />
               ) : src ? (
                 <Image
                   fill
                   src={`/images/${src}`}
                   alt={title}
+                  sizes={isMobile ? "100vw" : "(max-width: 1024px) 100vw, 50vw"}
+                  priority={i < 2} // Prioriser les premières images
                 />
               ) : null}
-            </motion.div>
+            </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

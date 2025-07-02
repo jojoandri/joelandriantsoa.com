@@ -1,202 +1,373 @@
 .cardContainer {
-  height: 100vh;
+  height: auto; // Changé de 100vh à auto pour un affichage plus naturel
+  min-height: 100vh; // Hauteur minimale pour garder la structure
   display: flex;
   align-items: center;
   justify-content: center;
-  // position: sticky;
+  position: relative;
   top: 0;
-  margin-top: 50px;
-// .style_cardContainer {
-  flex-direction: column;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 1rem;
-  margin: 0 auto;
-  position: relative; /* Évite le sticky sur mobile */
+  padding: 2rem; // Augmenté le padding pour plus d'espacement
+  // Améliorer le scroll mobile
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  
+  // Scroll snap pour un positionnement précis des cartes
+  scroll-snap-align: start;
+  scroll-snap-stop: normal; // Fluide, pas forcé
 }
 
 
-  .card {
+.card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 800px; // Augmenté de 700px à 800px
+  width: min(1600px, 95vw); // Augmenté de 1400px à 1600px
+  border-radius: 30px; // Augmenté de 25px à 30px
+  padding: 30px; // Augmenté de 50px à 60px
+  transform-origin: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); // Ombre plus prononcée
+  // Optimiser les performances
+  will-change: transform;
+  // Améliorer l'accessibilité
+  overflow: hidden;
+
+  h2 {
+    text-align: center;
+    margin: 0 0 50px 0; // Augmenté de 40px à 50px
+    font-size: clamp(24px, 4vw, 40px); // Augmenté de 22-36px à 24-40px
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+  }
+
+  .body {
     display: flex;
-    flex-direction: column;
-    position: relative;
-    top: -2%;
-    height: 600px;
-    width: 1300px;
-    border-radius: 10px;
-    padding: 10px;
-    transform-origin: center;
+    height: 100%;
+    gap: 80px; // Augmenté de 60px à 80px
+    align-items: stretch;
 
-    h2 {
-      text-align: center;
-      margin: 0;
-      font-size: 32px;
-    }
-
-    .body {
+    .description {
+      width: 20%; // Réduit pour occuper exactement 20% de la largeur
       display: flex;
-      height: 100%;
-      margin-top: 50px;
-      gap: 50px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
 
-      .description {
-        width: 40%;
-        position: relative;
-        top: 10%;
+      p {
+        font-size: clamp(16px, 2vw, 20px); // Augmenté de 15-18px à 16-20px
+        line-height: 1.6;
+        color: #666;
+        margin: 0;
 
-        p {
-          font-size: 16px;
+        &::first-letter {
+          font-size: clamp(26px, 4vw, 36px); // Augmenté de 24-32px à 26-36px
+          font-family: 'Title', serif;
+          font-weight: bold;
+          color: #333;
+        }
+      }
 
-          &::first-letter {
-            font-size: 28px;
-            font-family: 'Title';
-          }
+      .linkSpan {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px; // Augmenté de 10px à 12px
+        padding: 16px 32px; // Augmenté de 14-28px à 16-32px
+        background: #007acc;
+        color: white;
+        text-decoration: none;
+        border-radius: 35px; // Augmenté de 30px à 35px
+        font-size: 16px; // Augmenté de 15px à 16px
+        font-weight: 500;
+        transition: all 0.3s ease;
+        align-self: flex-start;
+
+        &:hover {
+          background: #005fa3;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 122, 204, 0.3);
         }
 
         span {
           display: flex;
           align-items: center;
-          gap: 5px;
-
-          a {
-            font-size: 12px;
-            text-decoration: underline;
-            cursor: pointer;
-          }
         }
+      }
+    }
+
+    .imageContainer {
+      position: relative;
+      width: 72%; // Augmenté pour occuper exactement 80% de la largeur
+      height: 85%; // Hauteur optimisée sans padding
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+      align-self: center;
+
+      .inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border-radius: inherit;
+        overflow: hidden;
+      }
+
+      .video, img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+        image-rendering: optimizeQuality;
+        object-position: center;
+      }
+
+      .video {
+        background: transparent; // Suppression du fond noir
+      }
+    }
+  }
+}
+
+
+// � RESPONSIVE DESIGN PROGRESSIF
+// ================================
+
+// Large screens (1200px+) : Design par défaut optimisé
+
+// Medium-large screens (1025px - 1199px)
+@media (max-width: 1199px) {
+  .card {
+    width: min(1400px, 96vw); // Augmenté de 1200px à 1400px
+    height: 750px; // Augmenté de 650px à 750px
+    padding: 55px; // Augmenté de 45px à 55px
+
+    .body {
+      gap: 70px; // Augmenté de 50px à 70px
+
+      .description {
+        width: 20%; // 20% pour la description sur écrans moyens
       }
 
       .imageContainer {
-        position: relative;
-        width: 150%;
-        height: 100%;
-        border-radius: 25px;
-        overflow: hidden;
-      
-
+        width: 80%; // 80% pour le conteneur média sur écrans moyens
+        height: 85%; // Hauteur optimisée
+        align-self: center;
+        
         .inner {
-          width: 100%;
-          height: 100%;
-        }
-
-        .video, img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
           border-radius: inherit;
         }
       }
     }
   }
+}
 
+// Tablets landscape (769px - 1024px)
+@media (max-width: 1024px) {
+  .cardContainer {
+    height: auto; // Hauteur naturelle
+    min-height: 80vh; // Réduire la hauteur minimale sur tablette
+    padding: 1.5rem;
+    // Pas de scroll snap sur tablette pour plus de fluidité
+  }
 
-/* 📱 Téléphone */
+  .card {
+    width: min(1100px, 98vw); // Augmenté de 950px à 1100px
+    height: auto;
+    min-height: 700px; // Augmenté de 600px à 700px
+    padding: 40px; // Augmenté de 35px à 40px
+
+    h2 {
+      margin-bottom: 35px; // Augmenté de 30px à 35px
+      font-size: clamp(22px, 4vw, 32px); // Ajusté
+    }
+
+    .body {
+      flex-direction: column;
+      gap: 40px; // Augmenté de 35px à 40px
+      height: auto;
+
+      .description {
+        width: 100%;
+        order: 1;
+
+        .linkSpan {
+          align-self: center;
+          padding: 14px 28px; // Augmenté pour tablette
+        }
+      }
+
+      .imageContainer {
+        width: 100%;
+        height: 400px; // Ajusté pour un meilleur ratio sur tablette
+        order: 2;
+        
+        .inner {
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+}
+
+// Mobile landscape et petites tablettes (481px - 768px)
+@media (max-width: 768px) {
+  .cardContainer {
+    height: auto;
+    min-height: 70vh; // Encore plus réduit sur mobile
+    padding: 1rem;
+    // Optimiser le scroll mobile
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    // Pas de scroll snap sur mobile
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+    min-height: 600px; // Augmenté de 520px à 600px
+    padding: 35px; // Augmenté de 30px à 35px
+    border-radius: 25px; // Augmenté de 20px à 25px
+
+    h2 {
+      margin-bottom: 30px; // Augmenté de 25px à 30px
+      text-align: left;
+      font-size: clamp(20px, 4vw, 28px); // Augmenté
+    }
+
+    .body {
+      gap: 35px; // Augmenté de 30px à 35px
+
+      .description {
+        text-align: left;
+
+        p {
+          font-size: clamp(15px, 2.5vw, 17px); // Augmenté
+
+          &::first-letter {
+            font-size: clamp(24px, 4vw, 28px); // Augmenté
+          }
+        }
+
+        .linkSpan {
+          align-self: flex-start;
+          padding: 14px 26px; // Augmenté de 12-22px à 14-26px
+          font-size: 15px; // Augmenté de 14px à 15px
+        }
+      }
+
+      .imageContainer {
+        height: 320px; // Ajusté pour mobile avec bon ratio
+        border-radius: 22px;
+        
+        .inner {
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+}
+
+// Mobile portrait (320px - 480px)
 @media (max-width: 480px) {
   .cardContainer {
-    margin-top: 10px;
-    .card {
-      width: 30px;
-      height: auto;
-      padding: 10px;
-      top: 0;
-
-      h2 {
-        font-size: 20px;
-      }
-
-      .body {
-        flex-direction: column;
-        gap: 20px;
-
-        .description {
-          width: 100%;
-          top: 0;
-          margin-top: 0;
-          p {
-            font-size: 14px;
-            &::first-letter {
-              font-size: 22px;
-            }
-          }
-
-          span a {
-            font-size: 11px;
-          }
-        }
-
-        .imageContainer {
-          width: 100%;
-          height: 200px;
-        }
-      }
-    }
+    padding: 0.75rem;
+    margin: 20px 0; // Augmenté de 15px à 20px
   }
-}
 
-/* 📱 Tablette */
-@media (min-width: 481px) and (max-width: 1024px) {
-  .cardContainer {
-    margin-top: 200px;
-    .card {
-      width: 810px;
-      height: auto;
-      padding: 30px;
-      top: 0;
-
-      h2 {
-        font-size: 26px;
-      }
-
-      .body {
-        flex-direction: column;
-        gap: 30px;
-
-        .description {
-          width: 100%;
-          top: 0;
-          margin-top: 0;
-          p {
-            font-size: 15px;
-            &::first-letter {
-              font-size: 24px;
-            }
-          }
-        }
-
-        .imageContainer {
-          width: 100%;
-          height: 350px;
-        }
-      }
-    }
-  }
-}
-@media (max-width: 768px) {
-  .style_cardContainer__9eyn3 {
-    padding: 1rem;
-    margin: 0 auto;
+  .card {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+    height: auto;
+    min-height: 550px; // Augmenté de 480px à 550px
+    padding: 30px; // Augmenté de 25px à 30px
+    border-radius: 22px; // Augmenté de 18px à 22px
 
-  .style_textContainer__lxd3g {
-    font-size: 16px !important;
-    text-align: center;
+    h2 {
+      margin-bottom: 25px; // Augmenté de 20px à 25px
+      font-size: clamp(22px, 5vw, 28px); // Augmenté
+    }
+
+    .body {
+      gap: 30px; // Augmenté de 25px à 30px
+
+      .description {
+        p {
+          line-height: 1.5;
+          font-size: clamp(15px, 3vw, 17px); // Augmenté
+
+          &::first-letter {
+            font-size: clamp(22px, 4.5vw, 26px); // Augmenté
+          }
+        }
+
+        .linkSpan {
+          padding: 12px 22px; // Augmenté de 10-18px à 12-22px
+          font-size: 14px; // Augmenté de 13px à 14px
+          border-radius: 25px; // Augmenté de 22px à 25px
+        }
+      }
+
+      .imageContainer {
+        height: 260px; // Ajusté pour mobile portrait
+        border-radius: 18px;
+        
+        .inner {
+          border-radius: inherit;
+        }
+      }
+    }
   }
 }
+
+// Très petits écrans (max 360px)
+@media (max-width: 360px) {
+  .card {
+    padding: 25px; // Augmenté de 20px à 25px
+    min-height: 480px; // Augmenté de 420px à 480px
+
+    h2 {
+      font-size: clamp(20px, 5vw, 24px); // Augmenté
+    }
+
+    .body {
+      gap: 25px; // Augmenté de 20px à 25px
+
+      .imageContainer {
+        height: 220px; // Ajusté pour petits écrans
+        border-radius: 15px;
+        
+        .inner {
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+}
+
+// 🎯 CLASSE SPÉCIALE POUR LA DERNIÈRE CARTE
+// ==========================================
+
+.lastCard {
+  margin-bottom: 120px !important; // Marge forcée pour la dernière carte sur desktop
+}
+
+// Responsive pour la dernière carte
 @media (max-width: 1024px) {
-  .style_cardContainer__9eyn3 {
-    padding: 1rem;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  .lastCard {
+    margin-bottom: 100px !important; // Tablette
   }
+}
 
-  .style_textContainer__lxd3g {
-    font-size: 16px !important;
-    text-align: center;
+@media (max-width: 768px) {
+  .lastCard {
+    margin-bottom: 80px !important; // Mobile landscape
+  }
+}
+
+@media (max-width: 480px) {
+  .lastCard {
+    margin-bottom: 60px !important; // Mobile portrait
   }
 }

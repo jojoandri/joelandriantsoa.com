@@ -1,6 +1,63 @@
 
-body{
-    margin: 0px;
-    overflow: hidden; /* Hide scrollbars */
-    cursor: wait;
+/* 🔧 OPTIMISATIONS GLOBALES POUR MOBILE */
+* {
+  box-sizing: border-box;
 }
+
+html {
+  /* Améliorer le scroll sur mobile */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  /* Éviter le zoom sur focus mobile */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Scroll normal et naturel - pas de smooth global pour préserver la performance */
+  scroll-behavior: auto; /* Changé de smooth à auto pour un scroll plus naturel */
+}
+
+body {
+  margin: 0px;
+  /* Permettre le scroll normal pour voir toutes les sections */
+  overflow-x: hidden; /* Garder seulement le scroll horizontal caché */
+  overflow-y: auto;   /* Permettre le scroll vertical normal */
+  cursor: wait;
+  /* Optimiser les fonts sur mobile */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Éviter le bounce sur iOS */
+  overscroll-behavior: none;
+}
+
+/* Améliorer les performances sur mobile */
+@media (max-width: 768px) {
+  html {
+    /* Désactiver scroll snap sur mobile pour plus de fluidité */
+    scroll-snap-type: none;
+  }
+  
+  * {
+    /* Réduire les animations coûteuses sur mobile */
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+  
+  /* Optimiser les images sur mobile */
+  img, video {
+    image-rendering: optimizeSpeed;
+    transform: translateZ(0); /* Activer l'accélération matérielle */
+  }
+}
+
+/* Réduire les animations pour les utilisateurs qui le préfèrent */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

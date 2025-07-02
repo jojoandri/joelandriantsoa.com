@@ -1,11 +1,12 @@
 'use client'
 import Image from 'next/image'
 import styles from './style.module.scss'
-import { useRef, useLayoutEffect, useCallback } from 'react';
+import { useRef, useLayoutEffect, useCallback, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { slideUp } from './animation';
 import { motion } from 'framer-motion';
+import { useResponsiveScroll } from '../../hooks/useResponsiveScroll';
 
 export default function Home() {
 
@@ -14,33 +15,65 @@ export default function Home() {
   const slider = useRef(null);
   const xPercent = useRef(0);
   const direction = useRef(-1);
+  const [isClient, setIsClient] = useState(false);
+  const { isMobile, isTablet, isTouchDevice, getScrollConfig } = useResponsiveScroll();
+
+  // S'assurer que le composant est monté côté client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const animate = useCallback(() => {
+    if (!isClient || !firstText.current || !secondText.current) return;
+    
     if (xPercent.current < -100) {
       xPercent.current = 0;
     } else if (xPercent.current > 0) {
       xPercent.current = -100;
     }
+    
     gsap.set(firstText.current, { xPercent: xPercent.current });
     gsap.set(secondText.current, { xPercent: xPercent.current });
     requestAnimationFrame(animate);
-    xPercent.current += 0.1 * direction.current;
-  }, [xPercent, direction]);
+    
+    const scrollConfig = getScrollConfig();
+    xPercent.current += scrollConfig.animationSpeed * direction.current;
+  }, [isClient, getScrollConfig]);
 
   useLayoutEffect(() => {
+    if (!isClient) return;
+    
     gsap.registerPlugin(ScrollTrigger);
+    
+    const scrollConfig = getScrollConfig();
+    
+    // Configuration optimisée selon le type d'appareil
+    const scrollTriggerConfig = {
+      trigger: document.documentElement,
+      scrub: scrollConfig.scrub,
+      start: 0,
+      end: window.innerHeight,
+      onUpdate: e => direction.current = e.direction * -1,
+      // Améliorer les performances sur mobile
+      ...(isTouchDevice && {
+        invalidateOnRefresh: true,
+        refreshPriority: -1
+      })
+    };
+    
     gsap.to(slider.current, {
-      scrollTrigger: {
-        trigger: document.documentElement,
-        scrub: 0.25,
-        start: 0,
-        end: window.innerHeight,
-        onUpdate: e => direction.current = e.direction * -1
-      },
-      x: "-500px",
+      scrollTrigger: scrollTriggerConfig,
+      x: scrollConfig.slideDistance,
+      ease: isMobile ? "power2.out" : "none"
     });
+    
     requestAnimationFrame(animate);
-  }, [animate]);
+    
+    // Cleanup pour éviter les fuites mémoire
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [animate, isClient, isMobile, isTouchDevice, getScrollConfig]);
   
   return (
     <motion.main variants={slideUp} initial="initial" animate="enter" className={styles.landing}>

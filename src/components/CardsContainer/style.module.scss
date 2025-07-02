@@ -1,0 +1,99 @@
+.cardsWrapper {
+  width: 100%;
+  position: relative;
+  // Améliorer le défilement sur mobile
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  
+  // Scroll snap seulement sur les cartes pour un scroll précis entre projets
+  scroll-snap-type: y proximity; // Plus doux que mandatory
+  min-height: 100vh;
+  
+  // Espacements clairs entre les cartes
+  padding: 2rem 0 4rem 0; // Augmenté le padding-bottom pour plus d'espace visible
+  
+  // Margin-bottom pour garantir l'espace avec Contact même si le contenu varie
+  margin-bottom: 300px; // Augmenté pour plus d'espace de sécurité
+  
+  // Marge spéciale pour la dernière carte
+  > div:last-child {
+    margin-bottom: 80px; // Marge visible en bas de la dernière carte
+  }
+}
+
+// Optimisations pour mobile
+@media (max-width: 768px) {
+  .cardsWrapper {
+    // Éviter les problèmes de sticky sur mobile
+    position: relative;
+    
+    // Désactiver scroll snap sur mobile pour plus de fluidité
+    scroll-snap-type: none;
+    
+    // Padding-bottom plus important sur mobile
+    padding-bottom: 3rem;
+    
+    // Margin-bottom plus important sur mobile pour éviter le chevauchement
+    margin-bottom: 200px;
+    
+    // Marge spéciale pour la dernière carte sur mobile
+    > div:last-child {
+      margin-bottom: 60px; // Marge visible adaptée au mobile
+    }
+    
+    // Espacement très compact entre les cartes sur mobile
+    > div:not(:last-child) {
+      margin-bottom: 20px; // Réduit de 30px à 20px pour maximum de compacité
+    }
+  }
+}
+
+// Mobile portrait et très petits écrans (max-width: 480px)
+@media (max-width: 480px) {
+  .cardsWrapper {
+    // Margin-bottom maximal pour très petits écrans
+    margin-bottom: 120px;
+    
+    > div:not(:last-child) {
+      margin-bottom: 15px; // Encore plus compact sur très petits écrans
+    }
+  }
+}
+
+// Optimisations pour tablette
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cardsWrapper {
+    // Scroll snap plus doux sur tablette
+    scroll-snap-type: y proximity;
+    
+    // Padding-bottom adapté aux tablettes
+    padding-bottom: 3.5rem;
+    
+    // Margin-bottom adapté aux tablettes
+    margin-bottom: 250px;
+    
+    // Marge spéciale pour la dernière carte sur tablette
+    > div:last-child {
+      margin-bottom: 70px; // Marge visible adaptée aux tablettes
+    }
+    
+    > div:not(:last-child) {
+      margin-bottom: 35px; // Réduit de 50px à 35px pour plus de densité
+    }
+  }
+}
+
+// Desktop (comportement normal)
+@media (min-width: 1025px) {
+  .cardsWrapper {
+    // Marge spéciale pour la dernière carte sur desktop
+    > div:last-child {
+      margin-bottom: 80px; // Marge visible pour la dernière carte
+    }
+    
+    // Espacement très compact sur desktop pour navigation dense
+    > div:not(:last-child) {
+      margin-bottom: 40px; // Réduit de 60px à 40px pour maximum de densité
+    }
+  }
+}

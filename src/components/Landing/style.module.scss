@@ -5,9 +5,12 @@
   justify-content: center;
   height: 100vh;
   overflow: hidden;
+  // Améliorer l'accessibilité du scroll sur mobile
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 
   img {
-    object-fit: cover ;
+    object-fit: cover;
     object-position: center 10%;
     width: 100%;
     height: 100%;
@@ -22,21 +25,27 @@
     right: 0;
     display: flex;
     justify-content: center;
+    // Éviter les problèmes de débordement sur mobile
+    overflow: hidden;
   }
 
   .slider {
     position: relative;
     white-space: nowrap;
     display: flex;
+    // Améliorer les performances sur mobile
+    will-change: transform;
 
     p {
       margin: 10px;
       color: white;
-      font-size: 200px;
+      font-size: clamp(80px, 12vw, 200px);
       font-weight: 300;
       padding-right: 0px;
       white-space: nowrap;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      // Optimiser le rendu du texte
+      text-rendering: optimizeSpeed;
     }
 
     p:nth-of-type(2) {
@@ -44,18 +53,19 @@
       left: 100%;
       top: 0;
     }
-    
   }
 
   .description {
     position: absolute;
-    top: 25%;
-    left: 65%;
+    top: 35%; // Descendu de 25% à 35%
+    left: 75%; // Déplacé beaucoup plus à droite (était 65%)
     transform: translate(-50%, -50%);
     color: white;
     font-size: 1.5rem;
     font-weight: 400;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    // Améliorer la lisibilité
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 
     p {
       margin: 10px;
@@ -65,30 +75,71 @@
     svg {
       transform: scale(1.5);
       margin-bottom: 50px;
+      // Améliorer les performances d'animation
+      will-change: transform;
     }
 
     .textContainer {
       margin-top: 10px;
       display: flex;
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
       justify-content: center;
       gap: 0.5rem;
     }
   }
 
-  // ✅ Responsive tweaks
-  @media (max-width: 1024px) {
+  // 🎯 RESPONSIVE DESIGN PROGRESSIF
+  // ================================
+
+  // Large screens (1200px+) : Design par défaut optimisé
+
+  // Medium-large screens (1025px - 1199px)
+  @media (max-width: 1199px) {
     .description {
-      top: 40%;
-      left: 50%;
+      top: 45%; // Descendu pour correspondre au nouveau positionnement
+      left: 72%; // Plus à droite (était 62%)
+      font-size: 1.4rem;
+      
+      svg {
+        transform: scale(1.4);
+        margin-bottom: 45px;
+      }
+    }
+
+    .sliderContainer {
+      top: calc(100vh - 220px);
+    }
+
+    .slider {
+      p {
+        font-size: clamp(75px, 11vw, 180px);
+      }
+    }
+  }
+
+  // Tablets landscape (769px - 1024px)
+  @media (max-width: 1024px) {
+    // Optimiser le scroll tactile
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    
+    .description {
+      top: 35%; // Descendu pour correspondre au nouveau positionnement
+      left: 75%; // Maintenir la même position que desktop
       transform: translate(-50%, -50%);
       font-size: 1.3rem;
-      text-align: center;
+      // Pas de text-align pour garder l'alignement par défaut (gauche)
+      padding: 0 25px;
+      max-width: 85vw;
 
-      p, p:nth-of-type(2) {
-        position: static;
-        margin-bottom: 10px;
+      .textContainer {
+        margin-top: 10px; // Maintenir le style desktop
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; // Maintenir align-items: flex-start du desktop
+        justify-content: center;
+        gap: 0.5rem; // Maintenir le gap du desktop
       }
 
       svg {
@@ -96,65 +147,234 @@
         margin-bottom: 40px;
       }
     }
+
+    .sliderContainer {
+      top: calc(100vh - 190px);
+    }
+
+    .slider {
+      p {
+        font-size: clamp(65px, 9vw, 140px);
+        margin: 8px;
+      }
+    }
   }
 
+  // Mobile landscape et petites tablettes (481px - 768px)
   @media (max-width: 768px) {
+    // Améliorer l'accessibilité du scroll mobile
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    
     .description {
-      top: 45%;
-      left: 50%;
+      top: 35%; // Descendu pour correspondre au nouveau positionnement
+      left: 75%; // Maintenir la même position que desktop
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      // Pas de text-align pour garder l'alignement par défaut (gauche)
+      padding: 0 20px;
+      max-width: 90vw;
+      z-index: 1;
+
+      .textContainer {
+        margin-top: 10px; // Maintenir le style desktop
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; // Maintenir align-items: flex-start du desktop
+        justify-content: center;
+        gap: 0.5rem; // Maintenir le gap du desktop
+      }
+
+      svg {
+        transform: scale(1.2);
+        margin-bottom: 35px;
+        // Pas d'align-self pour maintenir l'alignement naturel
+      }
+
+      p {
+        margin: 8px;
+        margin-bottom: 4px;
+      }
+    }
+
+    .sliderContainer {
+      top: calc(100vh - 250px); // Maintenir la même hauteur que desktop
+      overflow: hidden;
+    }
+
+    .slider {
+      p {
+        font-size: clamp(80px, 12vw, 200px); // Maintenir la même taille que desktop
+        margin: 10px; // Maintenir la même marge que desktop
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); // Style uniforme
+      }
+    }
+  }
+
+  // Mobile portrait (320px - 480px)
+  @media (max-width: 480px) {
+    // Optimisations mobiles avancées
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    
+    .description {
+      top: 35%; // Descendu pour correspondre au nouveau positionnement
+      left: 75%; // Maintenir la même position que desktop
       transform: translate(-50%, -50%);
       font-size: 1.1rem;
-      text-align: center;
+      // Pas de text-align pour garder l'alignement par défaut (gauche)
+      padding: 0 15px;
+      max-width: 95vw;
+      z-index: 1;
 
-      p, p:nth-of-type(2) {
-        position: static;
-        margin-bottom: 10px;
+      .textContainer {
+        margin-top: 10px; // Maintenir le style desktop
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; // Maintenir align-items: flex-start du desktop
+        justify-content: center;
+        gap: 0.5rem; // Maintenir le gap du desktop
       }
 
       svg {
         transform: scale(1.1);
         margin-bottom: 30px;
+        // Pas d'align-self pour maintenir l'alignement naturel
+      }
+
+      p {
+        margin: 6px;
+        margin-bottom: 3px;
+        line-height: 1.3;
+      }
+    }
+
+    .sliderContainer {
+      top: calc(100vh - 250px); // Maintenir la même hauteur que desktop
+      overflow: hidden;
+    }
+
+    .slider {
+      // Optimiser les performances sur mobile
+      will-change: transform;
+      
+      p {
+        font-size: clamp(80px, 12vw, 200px); // Maintenir la même taille que desktop
+        margin: 10px; // Maintenir la même marge que desktop
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); // Style uniforme
+        // Améliorer le rendu du texte sur mobile
+        -webkit-font-smoothing: antialiased;
       }
     }
   }
 
-  @media (max-width: 480px) {
+  // Très petits écrans (max 360px)
+  @media (max-width: 360px) {
     .description {
-      top: 50%;
-      left: 50%;
+      top: 35%; // Descendu pour correspondre au nouveau positionnement
+      left: 75%; // Maintenir la même position que desktop
       transform: translate(-50%, -50%);
       font-size: 1rem;
-      text-align: center;
+      // Pas de text-align pour garder l'alignement par défaut (gauche)
+      padding: 0 10px;
+      max-width: 98vw;
 
-      p, p:nth-of-type(2) {
-        position: static;
-        margin-bottom: 10px;
+      .textContainer {
+        margin-top: 10px; // Maintenir le style desktop
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; // Maintenir align-items: flex-start du desktop
+        justify-content: center;
+        gap: 0.5rem; // Maintenir le gap du desktop
       }
 
       svg {
         transform: scale(1);
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        // Pas d'align-self pour maintenir l'alignement naturel
+      }
+
+      p {
+        margin: 5px;
+        margin-bottom: 2px;
+        line-height: 1.2;
+      }
+    }
+
+    .sliderContainer {
+      top: calc(100vh - 250px); // Maintenir la même hauteur que desktop
+    }
+
+    .slider {
+      p {
+        font-size: clamp(80px, 12vw, 200px); // Maintenir la même taille que desktop
+        margin: 10px; // Maintenir la même marge que desktop
       }
     }
   }
 
-  @media (max-width: 360px) {
-    .description {
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 0.9rem;
-      text-align: center;
-
-      p, p:nth-of-type(2) {
-        position: static;
-        margin-bottom: 10px;
+  // 📱 Optimisations d'accessibilité mobile
+  
+  // Améliorer l'accessibilité pour les utilisateurs qui préfèrent moins d'animation
+  @media (prefers-reduced-motion: reduce) {
+    .slider {
+      p {
+        animation: none;
+        transform: none;
       }
+    }
+    
+    .description {
+      svg {
+        transition: none;
+        transform: scale(1) !important;
+      }
+    }
+  }
+
+  // Optimiser pour les écrans avec un ratio d'aspect très étroit (téléphones en mode portrait)
+  @media (max-height: 600px) and (max-width: 480px) {
+    .description {
+      top: 30%;
+      font-size: 0.95rem;
 
       svg {
         transform: scale(0.9);
-        margin-bottom: 10px;
+        margin-bottom: 20px;
       }
+
+      .textContainer {
+        gap: 0.1rem;
+      }
+    }
+
+    .sliderContainer {
+      top: calc(100vh - 90px);
+    }
+
+    .slider {
+      p {
+        font-size: clamp(35px, 5vw, 70px);
+      }
+    }
+  }
+
+  // Optimisations spécifiques pour les très petits écrans en hauteur
+  @media (max-height: 500px) {
+    .description {
+      top: 25%;
+      font-size: 0.9rem;
+
+      svg {
+        transform: scale(0.8);
+        margin-bottom: 15px;
+      }
+    }
+
+    .sliderContainer {
+      top: calc(100vh - 70px);
     }
   }
 }
