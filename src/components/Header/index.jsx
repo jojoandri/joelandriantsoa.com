@@ -4,6 +4,7 @@ import styles from './style.module.scss';
 import { usePathname, useRouter } from 'next/navigation';
 import Magnetic from '../../common/Magnetic';
 
+
 export default function Index() {
     const header = useRef(null);
     const pathname = usePathname();

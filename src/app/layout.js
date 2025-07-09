@@ -5,9 +5,9 @@ import { Inter } from 'next/font/google';
 import Header from '../components/Header';
 import Script from 'next/script';
 
-// Lecture des IDs via les variables d’environnement
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+// Lecture des IDs via les variables d'environnement
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX'; // Remplacez par votre vrai ID
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX'; // Remplacez par votre vrai ID
 const ADS_ID = process.env.NEXT_PUBLIC_ADS_ID;
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,6 +22,10 @@ export default function RootLayout({ children }) {
     <html lang="fr">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Balises de vérification pour les backlinks */}
+        <meta name="msvalidate.01" content="E54951DA39732FC4A506C6860670BBC1" />
+        <meta name="p:domain_verify" content="cc162e0b3616302807ee21d48622921f" />
 
         {/* Google Analytics */}
         {GA_ID && (
