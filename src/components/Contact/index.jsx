@@ -24,7 +24,7 @@ export default function Contact() {
                             <Image 
                             fill={true}
                             alt={"image"}
-                            src={`/images/background.jpg`}
+                            src={`/images/miniprofil.png`}
                             />
                         </div>
                         <h2>Let&apos;s work</h2>

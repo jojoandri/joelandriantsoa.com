@@ -1,12 +1,12 @@
 .background {
   min-height: auto; // Changé de 100vh à auto pour s'adapter au contenu
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-  color: white;
+  background: linear-gradient(135deg, #a6afb0 0%, #a6afb0 50%, #a6afb0 100%); // CHANGÉ : votre nouveau gradient blanc
+  color: #2c3e50; // CHANGÉ : texte sombre pour lisibilité sur fond clair
   padding: 120px 0 0 0; // Suppression du padding-bottom pour que Contact soit collé
   position: relative;
   overflow-x: hidden;
   
-  // Effet de particules en arrière-plan limité au contenu
+  // Effet de particules en arrière-plan adapté au fond clair
   &::before {
     content: '';
     position: absolute;
@@ -14,8 +14,8 @@
     left: 0;
     width: 100%;
     height: 100%; // Sera limité à la hauteur du contenu
-    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 80%, rgba(69, 92, 233, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(155, 89, 182, 0.03) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
@@ -41,21 +41,23 @@
         height: 500px;
         border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 20px 60px rgba(250, 251, 255, 0.15); // CHANGÉ : ombre bleue subtile
         transform: rotate(-2deg);
         transition: transform 0.4s ease;
+        border: 3px solid rgba(0, 0, 0, 0.1); // AJOUTÉ : bordure bleue subtile
         
         &:hover {
           transform: rotate(0deg) scale(1.02);
+          box-shadow: 0 25px 70px rgba(240, 241, 244, 0.2); // CHANGÉ : ombre plus forte au hover
         }
         
         .photo {
           object-fit: cover;
           object-position: center;
-          filter: brightness(1.1) contrast(1.05);
+          filter: brightness(1.05) contrast(1.05); // AJUSTÉ pour le fond clair
         }
         
-        // Overlay gradient
+        // Overlay gradient adapté
         &::after {
           content: '';
           position: absolute;
@@ -63,7 +65,7 @@
           left: 0;
           width: 100%;
           height: 30%;
-          background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+          background: linear-gradient(to top, rgba(69, 92, 233, 0.2), transparent); // CHANGÉ
           pointer-events: none;
         }
       }
@@ -75,7 +77,7 @@
           font-size: clamp(3rem, 8vw, 5rem);
           font-weight: 300;
           margin-bottom: 20px;
-          background: linear-gradient(135deg, #fff 0%, #667eea 100%);
+          background: linear-gradient(135deg, #ffffff 0%, #f2f4fe 100%); // CHANGÉ : gradient sombre vers bleu
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -84,7 +86,7 @@
         
         .subtitle {
           font-size: clamp(1.2rem, 3vw, 1.8rem);
-          color: #b0b0b0;
+          color: #b79141; // CHANGÉ : gris moyen pour lisibilité
           font-weight: 300;
           margin: 0;
           opacity: 0.9;
@@ -101,11 +103,8 @@
         font-weight: 300;
         margin-bottom: 60px;
         text-align: center;
-        background: linear-gradient(135deg, #fff 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
+        color: #ffffff;
+      }   
     }
     
     // Timeline de formation
@@ -122,7 +121,7 @@
           top: 0;
           width: 2px;
           height: 100%;
-          background: linear-gradient(to bottom, #667eea, #764ba2);
+          background: linear-gradient(to bottom, #ffffff, #bdbcbc); // CHANGÉ : commence par le bleu
         }
         
         .timelineItem {
@@ -137,41 +136,49 @@
             top: 10px;
             width: 12px;
             height: 12px;
-            background: #667eea;
+            background: #ffffff; // CHANGÉ : bleu uniforme
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 0 20px rgba(69, 92, 233, 0.4); // CHANGÉ : ombre bleue
           }
           
           .year {
             font-size: 1.1rem;
-            color: #667eea;
+            color: #ffffff; // CHANGÉ : bleu uniforme
             font-weight: 600;
             margin-bottom: 10px;
           }
           
           .content {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.9); // CHANGÉ : fond blanc plus opaque
+            color: #ffffff; // CHANGÉ : texte sombre pour lis
             padding: 30px;
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgb(255, 255, 255); // CHANGÉ : bordure bleue
+            backdrop-filter: blur(28px);
+            transition: all 0.3s ease; // AJOUTÉ : transition
+            
+            &:hover {
+              transform: translateY(-5px); // AJOUTÉ : effet hover
+                box-shadow: 0 1px 10px rgba(255, 255, 255, 1);
+                border-color: #fff;
+            }
             
             h3 {
               font-size: 1.5rem;
               font-weight: 600;
               margin-bottom: 8px;
-              color: #fff;
+              color: #000000; // CHANGÉ : texte sombre
             }
             
             .institution {
-              color: #667eea;
+              color: #af8114; // CHANGÉ : bleu uniforme
               font-weight: 500;
               margin-bottom: 15px;
               font-size: 1.1rem;
             }
             
             .description {
-              color: #b0b0b0;
+              color: #5d6d7e; // CHANGÉ : gris moyen pour lisibilité
               line-height: 1.6;
               margin: 0;
               font-size: 1rem;
@@ -181,7 +188,7 @@
       }
     }
     
-    // Grille de compétences
+    // Grille de compétences avec la nouvelle couleur #455ce9
     .skills {
       .skillsGrid {
         display: grid;
@@ -189,24 +196,27 @@
         gap: 40px;
         
         .skillCategory {
-          background: rgba(255, 255, 255, 0.05);
+          background: #c6c5c500; // NOUVELLE COULEUR : bleu vif
           padding: 40px 30px;
           border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          // border: 1px solid rgba(69, 92, 233, 0.3); // Bordure de la même couleur
           backdrop-filter: blur(10px);
           text-align: center;
-          transition: transform 0.3s ease;
+          transition: all 0.3s ease;
+          // box-shadow: 0 8px 32px rgba(69, 92, 233, 0.25); // Ombre bleue
           
           &:hover {
-            transform: translateY(-10px);
-            border-color: rgba(102, 126, 234, 0.3);
+            transform: translateY(-10px) scale(1.02); // AMÉLIORÉ : effet hover plus prononcé
+            // border-color: rgba(174, 174, 174, 0.5);
+            box-shadow: 0 16px 48px rgba(238, 238, 241, 0.35);
           }
           
           h3 {
             font-size: 1.4rem;
             margin-bottom: 25px;
-            color: #667eea;
+            color: #ffffff; // CHANGÉ : blanc pour contraster avec le fond bleu
             font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // AJOUTÉ : ombre de texte
           }
           
           ul {
@@ -216,18 +226,19 @@
             
             li {
               padding: 8px 0;
-              color: #e0e0e0;
+              color: rgba(255, 255, 255, 0.9); // CHANGÉ : blanc semi-transparent
               font-size: 1rem;
-              border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+              border-bottom: 1px solid rgba(255, 255, 255, 0.2); // CHANGÉ : bordure blanche
+              transition: all 0.2s ease;
               
               &:last-child {
                 border-bottom: none;
               }
               
               &:hover {
-                color: #667eea;
-                transform: translateX(5px);
-                transition: all 0.2s ease;
+                color: #ffffff; // CHANGÉ : blanc pur au hover
+                transform: translateX(8px); // AUGMENTÉ : effet plus prononcé
+                font-weight: 500; // AJOUTÉ : poids plus fort au hover
               }
             }
           }
@@ -240,14 +251,15 @@
       text-align: center;
       
       .quote {
-        background: rgba(255, 255, 255, 0.05);
+        background: transparent;
         padding: 60px 40px;
         border-radius: 25px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(215, 216, 225, 0.15); // CHANGÉ : bordure bleue
         backdrop-filter: blur(10px);
         max-width: 800px;
         margin: 0 auto;
         position: relative;
+        box-shadow: 0 12px 40px rgba(211, 213, 225, 0.1); // CHANGÉ : ombre bleue
         
         // Guillemets décoratifs
         &::before {
@@ -256,7 +268,7 @@
           top: -10px;
           left: 30px;
           font-size: 4rem;
-          color: #667eea;
+          color: #455ce9; // CHANGÉ : bleu uniforme
           opacity: 0.3;
           font-family: serif;
         }
@@ -265,13 +277,13 @@
           font-size: 1.3rem;
           line-height: 1.7;
           font-style: italic;
-          color: #e0e0e0;
+          color: #e3ebf2; // CHANGÉ : texte sombre pour lisibilité
           margin-bottom: 30px;
           margin: 0 0 30px 0;
         }
         
         .author {
-          color: #667eea;
+          color: #ffffff; // CHANGÉ : bleu uniforme
           font-weight: 600;
           font-size: 1.1rem;
         }
