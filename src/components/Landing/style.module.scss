@@ -40,12 +40,13 @@
       margin: 10px;
       color: white;
       font-size: clamp(80px, 12vw, 200px);
-      font-weight: 300;
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
       padding-right: 0px;
       white-space: nowrap;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       // Optimiser le rendu du texte
       text-rendering: optimizeSpeed;
+      letter-spacing: -0.02em; // Espacement serré pour un look moderne
     }
 
     p:nth-of-type(2) {
@@ -63,9 +64,8 @@
     color: white;
     font-size: 1.5rem;
     font-weight: 400;
-    font-family: 'Arial', sans-serif;
-    // Améliorer la lisibilité
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.005em; // Espacement plus subtil pour plus d'élégance
 
     p {
       margin: 10px;
@@ -89,7 +89,7 @@
     }
   }
 
-  // 🎯 RESPONSIVE DESIGN PROGRESSIF
+  //  RESPONSIVE DESIGN PROGRESSIF
   // ================================
 
   // Large screens (1200px+) : Design par défaut optimisé

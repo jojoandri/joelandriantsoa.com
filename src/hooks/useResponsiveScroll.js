@@ -49,19 +49,19 @@ export const useResponsiveScroll = () => {
     if (deviceInfo.isMobile) {
       return {
         scrub: 0.8,
-        animationSpeed: 0.03,
+        animationSpeed: 0.0075, // Réduit à 25% de la vitesse originale (0.03 * 0.25)
         slideDistance: "-250px"
       };
     } else if (deviceInfo.isTablet) {
       return {
         scrub: 0.5,
-        animationSpeed: 0.05,
+        animationSpeed: 0.0125, // Réduit à 25% de la vitesse originale (0.05 * 0.25)
         slideDistance: "-350px"
       };
     } else {
       return {
         scrub: 0.25,
-        animationSpeed: 0.1,
+        animationSpeed: 0.025, // Réduit à 25% de la vitesse originale (0.1 * 0.25)
         slideDistance: "-500px"
       };
     }
