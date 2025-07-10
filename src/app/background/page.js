@@ -56,7 +56,7 @@ export default function Background() {
               <div className={styles.year}>2025</div>
               <div className={styles.content}>
                 <h3>Master 2 in IAE Poitiers</h3>
-                <p className={styles.institution}>Institut d'Administration des Entreprises (IAE) Poitiers</p>
+                <p className={styles.institution}>Institut d&apos;Administration des Entreprises (IAE) Poitiers</p>
                 <p className={styles.description}>
                   Specialization in Digital Marketing and Data Analysis.
                   Focus on digital strategy, data-driven marketing, and user experience.
@@ -68,7 +68,7 @@ export default function Background() {
               <div className={styles.year}>2024</div>
               <div className={styles.content}>
                 <h3>Undergraduate studies in ESTI</h3>
-                <p className={styles.institution}>Ecole Supérieure de Technologie et d'Informatique (ESTI)</p>
+                <p className={styles.institution}>Ecole Supérieure de Technologie et d&apos;Informatique (ESTI)</p>
                 <p className={styles.description}>
                   Two-year program in computer science with a focus on web development and digital marketing.
                 </p>
@@ -78,10 +78,10 @@ export default function Background() {
             <div className={styles.timelineItem}>
               <div className={styles.year}>2023</div>
               <div className={styles.content}>
-                <h3>Bachelor’s Degree in Business Administration</h3>
+                <h3>Bachelor&apos;s Degree in Business Administration</h3>
                 <p className={styles.institution}>INSCAE Madagascar</p>
                 <p className={styles.description}>
-                  Three-year undergraduate program with a strong focus on marketing strategy. Covers key concepts such as competitive advantage (Porter's Five Forces, Value Chain), market segmentation, positioning, and strategic brand management. Emphasizes analytical thinking and practical application through case studies and business simulations (e.g., Shadow manager case studies).
+                  Three-year undergraduate program with a strong focus on marketing strategy. Covers key concepts such as competitive advantage (Porter&apos;s Five Forces, Value Chain), market segmentation, positioning, and strategic brand management. Emphasizes analytical thinking and practical application through case studies and business simulations (e.g., Shadow manager case studies).
                 </p>
               </div>
             </div>
@@ -132,8 +132,8 @@ export default function Background() {
           <h2>My Philosophy</h2>
           <div className={styles.quote}>
             <p>
-              &quot;Do things seriously without taking yourself too seriously. &quot;
-                         </p>
+              &quot;Do things seriously without taking yourself too seriously.&quot;
+            </p>
             <span className={styles.author}>- Joël Andriantsoa</span>
           </div>
         </motion.section>
