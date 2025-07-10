@@ -1,7 +1,9 @@
 'use client'
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import styles from './page.module.scss';
 import Contact from '../../components/Contact';
+import Rounded from '../../common/RoundedButton';
 
 const slideUp = {
   initial: {
@@ -35,6 +37,80 @@ const stagger = {
 };
 
 export default function ContactPage() {
+  // État pour gérer les données du formulaire
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Fonction pour gérer les changements dans les champs
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Fonction pour soumettre le formulaire
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Créer le contenu de l'email formaté
+      const emailSubject = `Contact Portfolio - ${formData.subject}`;
+      const emailBody = `
+Nouveau message de contact :
+
+Nom: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+Téléphone: ${formData.phone || 'Non renseigné'}
+Sujet: ${formData.subject}
+
+Message:
+${formData.message}
+
+---
+Envoyé depuis votre formulaire de contact
+      `.trim();
+
+      // Créer le lien mailto avec toutes les données
+      const mailtoLink = `mailto:hello@joelandriantsoa.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      
+      // Ouvrir le client email
+      window.location.href = mailtoLink;
+      
+      setSubmitStatus('success');
+      
+      // Réinitialiser le formulaire après succès
+      setTimeout(() => {
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+        setSubmitStatus(null);
+      }, 3000);
+
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <motion.main variants={slideUp} initial="initial" animate="enter" className={styles.contact}>
       <div className={styles.container}>
@@ -48,30 +124,76 @@ export default function ContactPage() {
         <motion.section variants={stagger} initial="initial" animate="enter" className={styles.contactForm}>
           <motion.div variants={fadeIn} className={styles.formContainer}>
             <h2>Send Me a Message</h2>
-            <form>
+            
+            {/* Messages de statut */}
+            {submitStatus === 'success' && (
+              <div className={styles.successMessage}>
+                ✅ Votre client email va s'ouvrir avec votre message pré-rempli !
+              </div>
+            )}
+            {submitStatus === 'error' && (
+              <div className={styles.errorMessage}>
+                ❌ Une erreur s'est produite. Veuillez réessayer.
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <div className={styles.inputGroup}>
-                  <input type="text" id="firstName" name="firstName" required />
+                  <input 
+                    type="text" 
+                    id="firstName" 
+                    name="firstName" 
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    required 
+                  />
                   <label htmlFor="firstName">First Name</label>
                 </div>
                 <div className={styles.inputGroup}>
-                  <input type="text" id="lastName" name="lastName" required />
+                  <input 
+                    type="text" 
+                    id="lastName" 
+                    name="lastName" 
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    required 
+                  />
                   <label htmlFor="lastName">Last Name</label>
                 </div>
               </div>
               
               <div className={styles.inputGroup}>
-                <input type="email" id="email" name="email" required />
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required 
+                />
                 <label htmlFor="email">Email</label>
               </div>
               
               <div className={styles.inputGroup}>
-                <input type="tel" id="phone" name="phone" />
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                />
                 <label htmlFor="phone">Phone (optional)</label>
               </div>
               
               <div className={styles.inputGroup}>
-                <select id="subject" name="subject" required>
+                <select 
+                  id="subject" 
+                  name="subject" 
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  required
+                >
                   <option value="">Choose a subject</option>
                   <option value="project">New Project</option>
                   <option value="collaboration">Collaboration</option>
@@ -82,18 +204,20 @@ export default function ContactPage() {
               </div>
               
               <div className={styles.inputGroup}>
-                <textarea id="message" name="message" rows="6" required></textarea>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="6" 
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                ></textarea>
                 <label htmlFor="message">Message</label>
               </div>
               
-              <motion.button 
-                type="submit" 
-                className={styles.submitBtn}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Send Message
-              </motion.button>
+              <Rounded type="submit" disabled={isSubmitting}>
+                <p>{isSubmitting ? 'Sending...' : 'Send Message'}</p>
+              </Rounded>
             </form>
           </motion.div>
 
@@ -134,15 +258,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Availability */}
-            <div className={styles.availability}>
-              <h3>Availability</h3>
-              <div className={styles.statusIndicator}>
-                <div className={styles.statusDot}></div>
-                <span>Available for new projects</span>
-              </div>
-              <p>Average response time: 24h</p>
-            </div>
+            
           </motion.div>
         </motion.section>
 
