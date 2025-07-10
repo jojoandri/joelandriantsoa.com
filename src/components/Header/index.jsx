@@ -47,21 +47,70 @@ export default function Index() {
         };
     }, [checkIsMobile]);
 
-    // 🚀 OPTIMISATION MAJEURE : Navigation ultra-rapide avec prefetch
+    // 🚀 OPTIMISATION MAJEURE : Navigation ultra-rapide avec animation slideUp
     const fastNavigateToBackground = useCallback(async () => {
         if (isNavigating) return; // Prévient les double-clics
         
         setIsNavigating(true);
         setIsMobileNavOpen(false);
         
-        // Navigation immédiate avec prefetch optimisé
-        try {
-            await router.prefetch('/background');
+        // Créer l'overlay d'animation
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        `;
+        
+        // Ajouter le texte de transition
+        overlay.innerHTML = '<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s;">Background</div>';
+        document.body.appendChild(overlay);
+        
+        // Désactiver le scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Déclencher l'animation slideUp
+        requestAnimationFrame(() => {
+            overlay.style.transform = 'translateY(0)';
+            // Animer le texte
+            setTimeout(() => {
+                const textElement = overlay.querySelector('div');
+                if (textElement) {
+                    textElement.style.opacity = '1';
+                    textElement.style.transform = 'translateY(0)';
+                }
+            }, 300);
+        });
+        
+        // Naviguer après l'animation
+        setTimeout(() => {
             router.push('/background');
-        } catch (error) {
-            console.error('Navigation error:', error);
-            setIsNavigating(false);
-        }
+            
+            // Nettoyer après la navigation
+            setTimeout(() => {
+                overlay.style.transform = 'translateY(-100%)';
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.parentNode.removeChild(overlay);
+                    }
+                    document.body.style.overflow = 'auto';
+                    setIsNavigating(false);
+                }, 600);
+            }, 100);
+        }, 800);
     }, [router, isNavigating]);
 
     const fastNavigateToContact = useCallback(async () => {
@@ -70,14 +119,63 @@ export default function Index() {
         setIsNavigating(true);
         setIsMobileNavOpen(false);
         
-        // Navigation immédiate avec prefetch optimisé
-        try {
-            await router.prefetch('/contact');
+        // Créer l'overlay d'animation
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        `;
+        
+        // Ajouter le texte de transition
+        overlay.innerHTML = '<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s;">Contact</div>';
+        document.body.appendChild(overlay);
+        
+        // Désactiver le scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Déclencher l'animation slideUp
+        requestAnimationFrame(() => {
+            overlay.style.transform = 'translateY(0)';
+            // Animer le texte
+            setTimeout(() => {
+                const textElement = overlay.querySelector('div');
+                if (textElement) {
+                    textElement.style.opacity = '1';
+                    textElement.style.transform = 'translateY(0)';
+                }
+            }, 300);
+        });
+        
+        // Naviguer après l'animation
+        setTimeout(() => {
             router.push('/contact');
-        } catch (error) {
-            console.error('Navigation error:', error);
-            setIsNavigating(false);
-        }
+            
+            // Nettoyer après la navigation
+            setTimeout(() => {
+                overlay.style.transform = 'translateY(-100%)';
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.parentNode.removeChild(overlay);
+                    }
+                    document.body.style.overflow = 'auto';
+                    setIsNavigating(false);
+                }, 600);
+            }, 100);
+        }, 800);
     }, [router, isNavigating]);
 
     // Fonction scroll optimisée avec useCallback
