@@ -55,12 +55,22 @@ export default function Background() {
             <div className={styles.timelineItem}>
               <div className={styles.year}>2025</div>
               <div className={styles.content}>
-                <h3>Master in Computer Science</h3>
-                <p className={styles.institution}>École Supérieure de Technologie et d&#39;Innovation (ESTI)</p>
+                <h3>Master 2 in IAE Poitiers</h3>
+                <p className={styles.institution}>Institut d'Administration des Entreprises (IAE) Poitiers</p>
                 <p className={styles.description}>
-                  Specialization in modern web development, React/Next.js technologies,
-                  and full-stack application architecture. Focus on technological innovation
-                  and agile methodologies.
+                  Specialization in Digital Marketing and Data Analysis.
+                  Focus on digital strategy, data-driven marketing, and user experience.
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.timelineItem}>
+              <div className={styles.year}>2024</div>
+              <div className={styles.content}>
+                <h3>Undergraduate studies in ESTI</h3>
+                <p className={styles.institution}>Ecole Supérieure de Technologie et d'Informatique (ESTI)</p>
+                <p className={styles.description}>
+                  Two-year program in computer science with a focus on web development and digital marketing.
                 </p>
               </div>
             </div>
@@ -68,23 +78,10 @@ export default function Background() {
             <div className={styles.timelineItem}>
               <div className={styles.year}>2023</div>
               <div className={styles.content}>
-                <h3>Bachelor in Computer Science</h3>
-                <p className={styles.institution}>Université de Madagascar</p>
+                <h3>Bachelor’s Degree in Business Administration</h3>
+                <p className={styles.institution}>INSCAE Madagascar</p>
                 <p className={styles.description}>
-                  Comprehensive training in programming, algorithms, databases,
-                  and information systems. Final project on developing responsive web applications.
-                </p>
-              </div>
-            </div>
-
-            <div className={styles.timelineItem}>
-              <div className={styles.year}>2020</div>
-              <div className={styles.content}>
-                <h3>Scientific Baccalaureate</h3>
-                <p className={styles.institution}>Lycée Technique Antananarivo</p>
-                <p className={styles.description}>
-                  Specialization in mathematics and physics.
-                  Honors. First introduction to programming and computer science.
+                  Three-year undergraduate program with a strong focus on marketing strategy. Covers key concepts such as competitive advantage (Porter's Five Forces, Value Chain), market segmentation, positioning, and strategic brand management. Emphasizes analytical thinking and practical application through case studies and business simulations (e.g., Shadow manager case studies).
                 </p>
               </div>
             </div>
@@ -100,10 +97,9 @@ export default function Background() {
               <h3>Frontend</h3>
               <ul>
                 <li>React.js / Next.js</li>
-                <li>JavaScript ES6+</li>
-                <li>HTML5 / CSS3 / SCSS</li>
-                <li>Responsive Design</li>
-                <li>Framer Motion</li>
+                 <li>HTML5 / CSS3 / SCSS</li>
+                <li>WordPress/Framer/Figma</li>
+
               </ul>
             </div>
 
@@ -112,9 +108,9 @@ export default function Background() {
               <ul>
                 <li>Node.js</li>
                 <li>Express.js</li>
-                <li>REST API</li>
-                <li>Databases</li>
+
                 <li>MongoDB / MySQL</li>
+                <li>PHP / Laravel</li>
               </ul>
             </div>
 
@@ -123,8 +119,8 @@ export default function Background() {
               <ul>
                 <li>Git / GitHub</li>
                 <li>VS Code</li>
-                <li>Figma</li>
-                <li>Photoshop</li>
+                <li>Framer/Blender for 3D</li>
+                <li>Pack Adobe (Photoshop, Illustrator)</li>
                 <li>Deployment (Vercel)</li>
               </ul>
             </div>
@@ -136,10 +132,9 @@ export default function Background() {
           <h2>My Philosophy</h2>
           <div className={styles.quote}>
             <p>
-              &quot;Innovation is born from curiosity, grows through continuous learning,
-              and flourishes in creating solutions that positively impact users&#39; lives.&quot;
-            </p>
-            <span className={styles.author}>- Joel Andriantsoa</span>
+              &quot;Do things seriously without taking yourself too seriously. &quot;
+                         </p>
+            <span className={styles.author}>- Joël Andriantsoa</span>
           </div>
         </motion.section>
       </div>

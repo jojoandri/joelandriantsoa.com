@@ -90,7 +90,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
             <p>{description}</p>
             {link && (
               <a href={link} target="_blank" rel="noopener noreferrer" className={styles.linkSpan}>
-                <span>See more</span>
+                <span>Live site</span>
               </a>
             )}
           </div>
