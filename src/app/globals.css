@@ -1,3 +1,19 @@
+/* 🎨 POLICES PERSONNALISÉES */
+@font-face {
+  font-family: 'NeueMontreal';
+  src: url('/fonts/NeueMontreal_Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap; /* Améliorer les performances de chargement */
+}
+
+@font-face {
+  font-family: 'Neglige';
+  src: url('/fonts/Neglige.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* 🔧 OPTIMISATIONS GLOBALES POUR MOBILE */
 * {

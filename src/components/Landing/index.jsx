@@ -15,6 +15,7 @@ export default function Home() {
   const slider = useRef(null);
   const xPercent = useRef(0);
   const direction = useRef(-1);
+  const animationFrameId = useRef(null);
   const [isClient, setIsClient] = useState(false);
   const { isMobile, isTablet, isTouchDevice, getScrollConfig } = useResponsiveScroll();
 
@@ -22,6 +23,21 @@ export default function Home() {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Réinitialiser les valeurs d'animation lors des changements de configuration
+  useEffect(() => {
+    if (isClient) {
+      // Réinitialiser les valeurs pour éviter l'accumulation de vitesse
+      xPercent.current = 0;
+      direction.current = -1;
+      
+      // Réinitialiser les positions des éléments
+      if (firstText.current && secondText.current) {
+        gsap.set(firstText.current, { xPercent: 0 });
+        gsap.set(secondText.current, { xPercent: 0 });
+      }
+    }
+  }, [isClient, isMobile, isTablet, isTouchDevice]);
 
   const animate = useCallback(() => {
     if (!isClient || !firstText.current || !secondText.current) return;
@@ -34,10 +50,12 @@ export default function Home() {
     
     gsap.set(firstText.current, { xPercent: xPercent.current });
     gsap.set(secondText.current, { xPercent: xPercent.current });
-    requestAnimationFrame(animate);
     
     const scrollConfig = getScrollConfig();
     xPercent.current += scrollConfig.animationSpeed * direction.current;
+    
+    // Stocker l'ID de l'animation frame pour pouvoir l'annuler
+    animationFrameId.current = requestAnimationFrame(animate);
   }, [isClient, getScrollConfig]);
 
   useLayoutEffect(() => {
@@ -46,6 +64,16 @@ export default function Home() {
     gsap.registerPlugin(ScrollTrigger);
     
     const scrollConfig = getScrollConfig();
+    
+    // Nettoyer les animations précédentes
+    if (animationFrameId.current) {
+      cancelAnimationFrame(animationFrameId.current);
+    }
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    
+    // Réinitialiser les valeurs d'animation
+    xPercent.current = 0;
+    direction.current = -1;
     
     // Configuration optimisée selon le type d'appareil
     const scrollTriggerConfig = {
@@ -67,10 +95,16 @@ export default function Home() {
       ease: isMobile ? "power2.out" : "none"
     });
     
-    requestAnimationFrame(animate);
+    // Démarrer l'animation avec un petit délai pour s'assurer que tout est prêt
+    setTimeout(() => {
+      animationFrameId.current = requestAnimationFrame(animate);
+    }, 100);
     
     // Cleanup pour éviter les fuites mémoire
     return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [animate, isClient, isMobile, isTouchDevice, getScrollConfig]);
