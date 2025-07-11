@@ -128,12 +128,12 @@ Envoyé depuis votre formulaire de contact
             {/* Messages de statut */}
             {submitStatus === 'success' && (
               <div className={styles.successMessage}>
-                ✅ Votre client email va s'ouvrir avec votre message pré-rempli !
+                ✅ Votre client email va s&apos;ouvrir avec votre message pré-rempli !
               </div>
             )}
             {submitStatus === 'error' && (
               <div className={styles.errorMessage}>
-                ❌ Une erreur s'est produite. Veuillez réessayer.
+                ❌ Une erreur s&apos;est produite. Veuillez réessayer.
               </div>
             )}
 
