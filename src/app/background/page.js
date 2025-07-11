@@ -97,9 +97,8 @@ export default function Background() {
               <h3>Frontend</h3>
               <ul>
                 <li>React.js / Next.js</li>
-                 <li>HTML5 / CSS3 / SCSS</li>
+                <li>HTML5 / CSS3 / SCSS</li>
                 <li>WordPress/Framer/Figma</li>
-
               </ul>
             </div>
 
@@ -108,7 +107,6 @@ export default function Background() {
               <ul>
                 <li>Node.js</li>
                 <li>Express.js</li>
-
                 <li>MongoDB / MySQL</li>
                 <li>PHP / Laravel</li>
               </ul>
