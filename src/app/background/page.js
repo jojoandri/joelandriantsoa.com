@@ -59,7 +59,9 @@ export default function Background() {
                 <p className={styles.institution}>Institut d&apos;Administration des Entreprises (IAE) Poitiers</p>
                 <p className={styles.description}>
                   Specialization in Digital Marketing and Data Analysis.
-                  Focus on digital strategy, data-driven marketing, and user experience.
+                  I am the <strong> First Vice Top Graduate</strong> (Valedictorian Runner-up) of the Master&apos;s program in Marketing Strategy.
+
+
                 </p>
               </div>
             </div>

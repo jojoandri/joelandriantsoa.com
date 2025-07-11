@@ -267,23 +267,23 @@ Envoyé depuis votre formulaire de contact
           <h2>Frequently Asked Questions</h2>
           <div className={styles.faqGrid}>
             <div className={styles.faqItem}>
-              <h3>What types of projects do you accept?</h3>
-              <p>I mainly work on modern web projects: showcase websites, React/Next.js apps, e-commerce, and custom portfolios.</p>
+              <h3>What kind of digital ads do you specialize in?</h3>
+              <p>I specialize in Meta (Facebook & Instagram) Ads and Google Ads, focusing on performance-driven campaigns such as conversion, traffic, and lead generation. My approach combines strategic targeting, A/B testing, and retargeting.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>What are your delivery times?</h3>
-              <p>It depends on the complexity of the project. A showcase website usually takes 1-2 weeks, a more complex app can take 4-8 weeks.</p>
+              <h3>How do you measure the success of an advertising campaign?</h3>
+              <p>I rely on key performance indicators (KPIs) such as ROAS (Return on Ad Spend), CTR (Click-Through Rate), CPA (Cost per Acquisition), and conversion rate. These metrics help evaluate the impact of each campaign and guide strategic adjustments.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>Do you offer maintenance?</h3>
-              <p>Yes, I offer maintenance and technical support services for all the projects I develop.</p>
+              <h3>What budget do I need to run effective ads?</h3>
+              <p>Effective results can start with a modest budget, depending on your goals. For example, even a $100 campaign can generate significant ROI with the right audience targeting and optimization strategy.</p>
             </div>
             
             <div className={styles.faqItem}>
               <h3>Do you work remotely?</h3>
-              <p>Absolutely! I mainly work remotely but can travel for important meetings in Antananarivo.</p>
+              <p>Absolutely! I mainly work remotely but can travel for important meetings abroad.</p>
             </div>
           </div>
         </motion.section>
