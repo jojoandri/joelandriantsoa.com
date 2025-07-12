@@ -1,27 +1,51 @@
-// src/app/layout.js
-
 import './globals.css';
 import { Inter } from 'next/font/google';
 import Header from '../components/Header';
 import Script from 'next/script';
 
 // Lecture des IDs via les variables d'environnement
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX'; // Remplacez par votre vrai ID
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX'; // Remplacez par votre vrai ID
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX';
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX';
 const ADS_ID = process.env.NEXT_PUBLIC_ADS_ID;
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap', // Améliorer le rendu des fonts
+  preload: true
+});
 
 export const metadata = {
   title: 'Portfolio Joël Andriantsoa',
   description: 'Portfolio personnel développé avec Next.js',
+  keywords: ['portfolio', 'développeur', 'web', 'react', 'next.js'],
+  authors: [{ name: 'Joël Andriantsoa' }],
+  viewport: 'width=device-width, initial-scale=1',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Preload critical resources */}
+        <link
+          rel="preload"
+          href="/fonts/NeueMontreal_Medium.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          href="/fonts/Neglige.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          href="/images/background.jpg"
+          as="image"
+        />
         
         {/* Balises de vérification pour les backlinks */}
         <meta name="msvalidate.01" content="E54951DA39732FC4A506C6860670BBC1" />
