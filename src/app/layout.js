@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import Header from '../components/Header';
 import Analytics from '../components/Analytics';
 import AnalyticsDebug from '../components/AnalyticsDebug';
+import ScrollMenuButton from '../components/ScrollMenuButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         <Analytics />
         <AnalyticsDebug />
         <Header />
+        <ScrollMenuButton />
         {children}
       </body>
     </html>

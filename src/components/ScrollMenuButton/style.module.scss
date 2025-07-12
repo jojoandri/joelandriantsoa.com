@@ -1,0 +1,391 @@
+.scrollMenuButton {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  z-index: 2000;
+  
+  // Animation d'apparition
+  opacity: 0;
+  transform: translateY(-20px) scale(0.8);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .menuToggle {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: scale(1.05);
+      box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    &:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+
+    span {
+      width: 20px;
+      height: 2px;
+      background: white;
+      border-radius: 1px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-origin: center;
+    }
+
+    &.open {
+      span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      span:nth-child(2) {
+        opacity: 0;
+        transform: scale(0);
+      }
+      
+      span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+  }
+
+  // Styles pour les sections blanches
+  &.onWhiteSection {
+    .menuToggle {
+      background: rgba(128, 128, 128, 0.9); // Gris au lieu de noir
+      box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(0, 0, 0, 0.1);
+      
+      &:hover {
+        background: rgba(100, 100, 100, 0.95); // Gris plus foncé au hover
+        box-shadow: 
+          0 12px 35px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(0, 0, 0, 0.15);
+      }
+
+      span {
+        background: white; // Garder les barres blanches pour le contraste
+      }
+    }
+
+    .menuDropdown {
+      background: rgba(100, 100, 100, 0.95); // Menu gris aussi
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+
+      .menuHeader {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .menuNav {
+        .menuItem {
+          &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+          }
+          
+          &:active {
+            background: rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
+    }
+  }
+
+  .menuDropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    min-width: 280px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: menuSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    .menuHeader {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          transform: translateX(5px);
+        }
+        
+        .copyright {
+          color: #fff;
+          font-size: 1.2rem;
+          font-weight: 300;
+          transition: transform 0.3s ease;
+        }
+        
+        .name {
+          color: #fff;
+          font-size: 1rem;
+          font-weight: 300;
+          letter-spacing: 0.05em;
+        }
+        
+        &:hover .copyright {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    
+    .menuNav {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      
+      .menuItem {
+        color: #fff;
+        text-decoration: none;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
+          transform: translateX(5px);
+        }
+        
+        &:active {
+          background: rgba(255, 255, 255, 0.15);
+          transform: translateX(3px) scale(0.98);
+          transition: all 0.1s ease;
+        }
+      }
+    }
+  }
+
+  .menuOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: -1;
+  }
+}
+
+// Animation d'entrée du menu
+@keyframes menuSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .scrollMenuButton {
+    top: 20px;
+    right: 20px;
+    
+    .menuToggle {
+      width: 45px;
+      height: 45px;
+      
+      span {
+        width: 18px;
+        height: 2px;
+      }
+    }
+    
+    .menuDropdown {
+      top: 55px;
+      min-width: 250px;
+      padding: 20px;
+      
+      .menuHeader {
+        .logo {
+          .copyright {
+            font-size: 1.1rem;
+          }
+          
+          .name {
+            font-size: 0.9rem;
+          }
+        }
+      }
+      
+      .menuNav {
+        .menuItem {
+          padding: 10px 12px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .scrollMenuButton {
+    top: 15px;
+    right: 15px;
+    
+    .menuToggle {
+      width: 40px;
+      height: 40px;
+      
+      span {
+        width: 16px;
+        height: 2px;
+      }
+    }
+    
+    .menuDropdown {
+      top: 50px;
+      min-width: 220px;
+      padding: 18px;
+      right: -10px; // Ajustement pour très petits écrans
+      
+      .menuHeader {
+        margin-bottom: 15px;
+        
+        .logo {
+          .copyright {
+            font-size: 1rem;
+          }
+          
+          .name {
+            font-size: 0.85rem;
+          }
+        }
+      }
+      
+      .menuNav {
+        gap: 3px;
+        
+        .menuItem {
+          padding: 8px 10px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
+
+// Mode sombre automatique
+@media (prefers-color-scheme: dark) {
+  .scrollMenuButton {
+    .menuToggle {
+      background: rgba(255, 255, 255, 0.1);
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      
+      span {
+        background: #fff;
+      }
+    }
+    
+    .menuDropdown {
+      background: rgba(20, 20, 20, 0.95);
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+// Performance optimizations
+.scrollMenuButton {
+  will-change: transform, opacity;
+  
+  .menuToggle {
+    will-change: transform, background;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .menuDropdown {
+    will-change: transform, opacity;
+    contain: layout style paint;
+  }
+  
+  .menuItem {
+    will-change: transform, background;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+// Animation pour les écrans larges avec plus d'effet
+@media (min-width: 1024px) {
+  .scrollMenuButton {
+    .menuDropdown {
+      .menuNav {
+        .menuItem {
+          position: relative;
+          overflow: hidden;
+          
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+              transparent, 
+              rgba(255, 255, 255, 0.1), 
+              transparent);
+            transition: left 0.5s ease;
+          }
+          
+          &:hover::before {
+            left: 100%;
+          }
+        }
+      }
+    }
+  }
+}
