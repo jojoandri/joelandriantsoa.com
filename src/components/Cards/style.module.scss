@@ -122,10 +122,18 @@
         border-radius: inherit;
         image-rendering: optimizeQuality;
         object-position: center;
+        // Assurer que les médias remplissent complètement le conteneur
+        min-width: 100%;
+        min-height: 100%;
       }
 
       .video {
         background: transparent; // Suppression du fond noir
+        // Optimisations spécifiques pour les vidéos sur mobile
+        @media (max-width: 768px) {
+          object-fit: cover;
+          object-position: center;
+        }
       }
     }
   }
@@ -201,11 +209,19 @@
 
       .imageContainer {
         width: 100%;
-        height: 400px; // Ajusté pour un meilleur ratio sur tablette
+        height: 450px; // Augmenté de 400px à 450px pour tablette
         order: 2;
         
         .inner {
           border-radius: inherit;
+        }
+        
+        .video, img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: inherit;
+          object-position: center;
         }
       }
     }
@@ -259,11 +275,19 @@
       }
 
       .imageContainer {
-        height: 320px; // Ajusté pour mobile avec bon ratio
+        height: 200px; // Augmenté de 320px à 380px pour mobile landscape
         border-radius: 22px;
         
         .inner {
           border-radius: inherit;
+        }
+        
+        .video, img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: inherit;
+          object-position: center;
         }
       }
     }
@@ -280,7 +304,7 @@
   .card {
     width: 100%;
     height: auto;
-    min-height: 550px; // Augmenté de 480px à 550px
+    min-height: 600px; // Augmenté de 550px à 600px pour plus d'espace
     padding: 30px; // Augmenté de 25px à 30px
     border-radius: 22px; // Augmenté de 18px à 22px
 
@@ -310,47 +334,117 @@
       }
 
       .imageContainer {
-        height: 260px; // Ajusté pour mobile portrait
+        height: 145px; // Augmenté de 260px à 320px pour mobile portrait
         border-radius: 18px;
         
         .inner {
           border-radius: inherit;
         }
-      }
-    }
-  }
-}
-
-// Très petits écrans (max 360px)
-@media (max-width: 360px) {
-  .card {
-    padding: 25px; // Augmenté de 20px à 25px
-    min-height: 480px; // Augmenté de 420px à 480px
-
-    h2 {
-      font-size: clamp(20px, 5vw, 24px); // Augmenté
-    }
-
-    .body {
-      gap: 25px; // Augmenté de 20px à 25px
-
-      .imageContainer {
-        height: 220px; // Ajusté pour petits écrans
-        border-radius: 15px;
         
-        .inner {
+        .video, img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
           border-radius: inherit;
+          object-position: center;
         }
       }
     }
   }
 }
 
-// 🎯 CLASSE SPÉCIALE POUR LA DERNIÈRE CARTE
-// ==========================================
+// 📱 OPTIMISATIONS SPÉCIALES POUR TRÈS PETITS ÉCRANS
+// ===================================================
+
+// Écrans très petits (max 320px) - optimisation extrême
+@media (max-width: 320px) {
+  .card {
+    padding: 20px;
+    min-height: 520px;
+
+    h2 {
+      font-size: clamp(18px, 5vw, 22px);
+      margin-bottom: 20px;
+    }
+
+    .body {
+      gap: 25px;
+
+      .imageContainer {
+        height: 250px; // Hauteur minimale pour très petits écrans
+        border-radius: 12px;
+        
+        .video, img {
+          object-fit: cover;
+          object-position: center;
+          // Force le remplissage complet même sur très petits écrans
+          min-width: 100%;
+          min-height: 100%;
+        }
+      }
+    }
+  }
+}
+
+// 🎯 OPTIMISATIONS SPÉCIFIQUES POUR LES VIDÉOS SUR MOBILE
+// ========================================================
+
+@media (max-width: 768px) {
+  .imageContainer {
+    .video {
+      // Assure que la vidéo remplit complètement le conteneur
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      
+      // Éviter les barres noires sur les côtés
+      background: transparent;
+      
+      // Optimiser pour le touch sur mobile
+      touch-action: manipulation;
+    }
+  }
+}
+
+// 🎥 ASPECT RATIO INTELLIGENT POUR LES MÉDIAS
+// ============================================
+
+.imageContainer {
+  // Assurer un aspect ratio cohérent
+  aspect-ratio: 16/10; // Ratio légèrement plus large que 16/9
+  
+  @media (max-width: 768px) {
+    aspect-ratio: 4/3; // Ratio plus carré sur mobile pour utiliser l'espace
+  }
+  
+  @media (max-width: 480px) {
+    aspect-ratio: 16/11; // Ratio optimisé pour mobile portrait
+  }
+  
+  .inner {
+    // Force le conteneur à respecter l'aspect ratio
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  .video, img {
+    // Assure le remplissage optimal
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+// ...existing code...
 
 .lastCard {
-  margin-bottom: 120px !important; // Marge forcée pour la dernière carte sur desktop
+    margin-bottom: 120px !important; // Marge forcée pour la dernière carte sur desktop
 }
 
 // Responsive pour la dernière carte

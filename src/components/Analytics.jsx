@@ -3,20 +3,24 @@ import Script from 'next/script';
 
 export default function Analytics() {
   const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
-  const ADS_ID = process.env.NEXT_PUBLIC_ADS_ID;
+
+  // Debug: afficher l'ID dans la console
+  if (typeof window !== 'undefined') {
+    console.log('Analytics GA_ID:', GA_ID);
+  }
 
   return (
     <>
-      {/* Google Analytics (GA4) */}
+      {/* Google Analytics (GA4) - Format exact de Google */}
       {GA_ID && (
         <>
           <Script
+            async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
             strategy="afterInteractive"
           />
           <Script
-            id="ga-init"
+            id="gtag-init"
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
@@ -24,45 +28,6 @@ export default function Analytics() {
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${GA_ID}');
-              `,
-            }}
-          />
-        </>
-      )}
-
-      {/* Google Tag Manager */}
-      {GTM_ID && (
-        <Script
-          id="gtm-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${GTM_ID}');
-            `,
-          }}
-        />
-      )}
-
-      {/* Google Ads */}
-      {ADS_ID && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${ADS_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script
-            id="ads-init"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${ADS_ID}');
               `,
             }}
           />

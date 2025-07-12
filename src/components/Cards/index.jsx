@@ -109,6 +109,12 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
                   className={styles.video}
                   controls={isMobile} // Ajouter les contrôles sur mobile
                   preload={isMobile ? "metadata" : "auto"} // Charger moins de données sur mobile
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center'
+                  }}
                 />
               ) : src ? (
                 <Image
@@ -117,6 +123,10 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
                   alt={title}
                   sizes={isMobile ? "100vw" : "(max-width: 1024px) 100vw, 50vw"}
                   priority={i < 2} // Prioriser les premières images
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center'
+                  }}
                 />
               ) : null}
             </div>
