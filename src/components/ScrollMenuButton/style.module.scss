@@ -75,13 +75,13 @@
   // Styles pour les sections blanches
   &.onWhiteSection {
     .menuToggle {
-      background: rgba(128, 128, 128, 0.9); // Gris au lieu de noir
+      background: rgba(170, 181, 186, 0.9); // Couleur #aab5ba avec transparence
       box-shadow: 
         0 8px 25px rgba(0, 0, 0, 0.2),
         0 0 0 1px rgba(0, 0, 0, 0.1);
       
       &:hover {
-        background: rgba(100, 100, 100, 0.95); // Gris plus foncé au hover
+        background: rgba(154, 165, 170, 0.95); // Version plus foncée de #aab5ba au hover
         box-shadow: 
           0 12px 35px rgba(0, 0, 0, 0.3),
           0 0 0 1px rgba(0, 0, 0, 0.15);
@@ -93,7 +93,7 @@
     }
 
     .menuDropdown {
-      background: rgba(100, 100, 100, 0.95); // Menu gris aussi
+      background: rgba(170, 181, 186, 0.95); // Menu avec la même couleur #aab5ba
       box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.4),
         0 0 0 1px rgba(0, 0, 0, 0.1);
