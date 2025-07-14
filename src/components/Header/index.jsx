@@ -68,20 +68,52 @@ export default function Index() {
             letter-spacing: 0.1em;
             padding: 20px;
             text-align: center;
+            box-sizing: border-box;
         `;
         
-        // Déterminer la taille de police responsive
+        // Déterminer la taille de police responsive selon vos breakpoints exacts
         const getFontSize = () => {
             const width = window.innerWidth;
-            if (width <= 360) return '2rem';      // Très petits écrans
-            if (width <= 480) return '2.5rem';   // Mobile portrait
-            if (width <= 768) return '3rem';     // Mobile landscape / petites tablettes
-            if (width <= 1024) return '3.5rem';  // Tablettes
-            return '4rem';                       // Desktop
+            
+            // Très petits écrans (max 360px)
+            if (width <= 360) return '1.8rem';
+            
+            // Mobile portrait (320px - 480px)  
+            if (width <= 480) return '2.2rem';
+            
+            // Mobile landscape et petites tablettes (481px - 768px)
+            if (width <= 768) return '2.8rem';
+            
+            // Tablets landscape (769px - 1024px)
+            if (width <= 1024) return '3.4rem';
+            
+            // Medium-large screens (1025px - 1199px)
+            if (width <= 1199) return '3.8rem';
+            
+            // Large screens (1200px+) : Design par défaut optimisé
+            return '4.2rem';
         };
         
-        // Ajouter le texte de transition avec taille responsive
-        overlay.innerHTML = `<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s; font-size: ${getFontSize()}; max-width: 100%; word-wrap: break-word;">${text}</div>`;
+        // Créer le conteneur de texte avec un meilleur centrage
+        const textContainer = document.createElement('div');
+        textContainer.style.cssText = `
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease 0.3s;
+            font-size: ${getFontSize()};
+            max-width: 90%;
+            word-wrap: break-word;
+            text-align: center;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            overflow: hidden;
+        `;
+        textContainer.textContent = text;
+        
+        overlay.appendChild(textContainer);
         
         return overlay;
     }, []);
