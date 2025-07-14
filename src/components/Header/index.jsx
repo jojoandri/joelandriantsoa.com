@@ -65,7 +65,7 @@ export default function Index() {
             justify-content: center;
             color: white;
             font-weight: 300;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
             padding: 20px;
             text-align: center;
             box-sizing: border-box;
@@ -76,42 +76,49 @@ export default function Index() {
             const width = window.innerWidth;
             
             // Très petits écrans (max 360px)
-            if (width <= 360) return '1.8rem';
+            if (width <= 360) return '1.5rem';
             
             // Mobile portrait (320px - 480px)  
-            if (width <= 480) return '2.2rem';
+            if (width <= 480) return '2rem';
             
             // Mobile landscape et petites tablettes (481px - 768px)
-            if (width <= 768) return '2.8rem';
+            if (width <= 768) return '2.5rem';
             
             // Tablets landscape (769px - 1024px)
-            if (width <= 1024) return '3.4rem';
+            if (width <= 1024) return '3rem';
             
             // Medium-large screens (1025px - 1199px)
-            if (width <= 1199) return '3.8rem';
+            if (width <= 1199) return '3.5rem';
             
             // Large screens (1200px+) : Design par défaut optimisé
-            return '4.2rem';
+            return '4rem';
         };
         
-        // Créer le conteneur de texte avec un meilleur centrage
+        // Créer le conteneur de texte avec un centrage parfait
         const textContainer = document.createElement('div');
         textContainer.style.cssText = `
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.3s ease 0.3s;
             font-size: ${getFontSize()};
-            max-width: 90%;
-            word-wrap: break-word;
+            max-width: 95%;
             text-align: center;
-            line-height: 1.2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-            overflow: hidden;
+            line-height: 1.1;
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            font-family: inherit;
+            font-weight: inherit;
+            letter-spacing: inherit;
+            color: inherit;
         `;
-        textContainer.textContent = text;
+        
+        // Assigner le texte de manière sécurisée
+        textContainer.textContent = text || 'Navigation';
+        
+        // Ajouter une classe unique pour éviter les conflits
+        textContainer.className = 'transition-text-overlay';
+        overlay.className = 'navigation-overlay';
         
         overlay.appendChild(textContainer);
         
@@ -135,9 +142,9 @@ export default function Index() {
         // Déclencher l'animation slideUp
         requestAnimationFrame(() => {
             overlay.style.transform = 'translateY(0)';
-            // Animer le texte
+            // Animer le texte avec le sélecteur spécifique pour Background
             setTimeout(() => {
-                const textElement = overlay.querySelector('div');
+                const textElement = overlay.querySelector('.transition-text-overlay');
                 if (textElement) {
                     textElement.style.opacity = '1';
                     textElement.style.transform = 'translateY(0)';
@@ -179,9 +186,9 @@ export default function Index() {
         // Déclencher l'animation slideUp
         requestAnimationFrame(() => {
             overlay.style.transform = 'translateY(0)';
-            // Animer le texte
+            // Animer le texte avec le sélecteur spécifique pour Contact
             setTimeout(() => {
-                const textElement = overlay.querySelector('div');
+                const textElement = overlay.querySelector('.transition-text-overlay');
                 if (textElement) {
                     textElement.style.opacity = '1';
                     textElement.style.transform = 'translateY(0)';
