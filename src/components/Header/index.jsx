@@ -47,14 +47,8 @@ export default function Index() {
         };
     }, [checkIsMobile]);
 
-    // 🚀 OPTIMISATION MAJEURE : Navigation ultra-rapide avec animation slideUp
-    const fastNavigateToBackground = useCallback(async () => {
-        if (isNavigating) return; // Prévient les double-clics
-        
-        setIsNavigating(true);
-        setIsMobileNavOpen(false);
-        
-        // Créer l'overlay d'animation
+    // 🚀 FONCTION UTILITAIRE POUR CRÉER L'OVERLAY RESPONSIVE
+    const createResponsiveOverlay = useCallback((text) => {
         const overlay = document.createElement('div');
         overlay.style.cssText = `
             position: fixed;
@@ -70,13 +64,37 @@ export default function Index() {
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 4rem;
             font-weight: 300;
             letter-spacing: 0.1em;
+            padding: 20px;
+            text-align: center;
         `;
         
-        // Ajouter le texte de transition
-        overlay.innerHTML = '<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s;">Background</div>';
+        // Déterminer la taille de police responsive
+        const getFontSize = () => {
+            const width = window.innerWidth;
+            if (width <= 360) return '2rem';      // Très petits écrans
+            if (width <= 480) return '2.5rem';   // Mobile portrait
+            if (width <= 768) return '3rem';     // Mobile landscape / petites tablettes
+            if (width <= 1024) return '3.5rem';  // Tablettes
+            return '4rem';                       // Desktop
+        };
+        
+        // Ajouter le texte de transition avec taille responsive
+        overlay.innerHTML = `<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s; font-size: ${getFontSize()}; max-width: 100%; word-wrap: break-word;">${text}</div>`;
+        
+        return overlay;
+    }, []);
+
+    // 🚀 OPTIMISATION MAJEURE : Navigation ultra-rapide avec animation slideUp
+    const fastNavigateToBackground = useCallback(async () => {
+        if (isNavigating) return; // Prévient les double-clics
+        
+        setIsNavigating(true);
+        setIsMobileNavOpen(false);
+        
+        // Utiliser la fonction utilitaire pour créer l'overlay responsive
+        const overlay = createResponsiveOverlay('Background');
         document.body.appendChild(overlay);
         
         // Désactiver le scroll
@@ -111,7 +129,7 @@ export default function Index() {
                 }, 600);
             }, 100);
         }, 800);
-    }, [router, isNavigating]);
+    }, [router, isNavigating, createResponsiveOverlay]);
 
     const fastNavigateToContact = useCallback(async () => {
         if (isNavigating) return; // Prévient les double-clics
@@ -119,29 +137,8 @@ export default function Index() {
         setIsNavigating(true);
         setIsMobileNavOpen(false);
         
-        // Créer l'overlay d'animation
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            z-index: 9999;
-            transform: translateY(100%);
-            transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-        `;
-        
-        // Ajouter le texte de transition
-        overlay.innerHTML = '<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s;">Contact</div>';
+        // Utiliser la fonction utilitaire pour créer l'overlay responsive
+        const overlay = createResponsiveOverlay('Contact');
         document.body.appendChild(overlay);
         
         // Désactiver le scroll
@@ -176,7 +173,7 @@ export default function Index() {
                 }, 600);
             }, 100);
         }, 800);
-    }, [router, isNavigating]);
+    }, [router, isNavigating, createResponsiveOverlay]);
 
     // Fonction scroll optimisée avec useCallback
     const fastScrollToSection = useCallback((sectionId) => {
