@@ -1,3 +1,5 @@
+
+=======
 'use client';
 import Image from 'next/image';
 import styles from './style.module.scss';
@@ -138,3 +140,4 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
 };
 
 export default Card;
+

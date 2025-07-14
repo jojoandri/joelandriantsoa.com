@@ -5,8 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "optimize-images": "next-optimized-images",
+    "prestart": "npm run build"
   },
   "dependencies": {
     "eslint": "8.45.0",
