@@ -14,18 +14,23 @@ const inter = Inter({
 export const metadata = {
   title: 'Portfolio Joël Andriantsoa',
   description: 'Portfolio personnel développé avec Next.js',
+
   keywords: ['portfolio', 'développeur', 'web', 'react', 'next.js'],
   authors: [{ name: 'Joël Andriantsoa' }],
+
   verification: {
     msvalidate: 'E54951DA39732FC4A506C6860670BBC1',
     pinterest: 'cc162e0b3616302807ee21d48622921f'
   },
+
   viewport: 'width=device-width, initial-scale=1',
+
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
+
       <head>
         {/* Preload critical resources pour améliorer les performances */}
         <link
@@ -61,6 +66,13 @@ export default function RootLayout({ children }) {
         <ScrollMenuButton />
         
         {/* Contenu principal */}
+
+      <body className={inter.className}>
+        <Analytics />
+        <AnalyticsDebug />
+        <Header />
+        <ScrollMenuButton />
+
         {children}
       </body>
     </html>

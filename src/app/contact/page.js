@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './page.module.scss';
 import Contact from '../../components/Contact';
 import Rounded from '../../common/RoundedButton';
@@ -37,6 +38,8 @@ const stagger = {
 };
 
 export default function ContactPage() {
+  const router = useRouter();
+  
   // État pour gérer les données du formulaire
   const [formData, setFormData] = useState({
     firstName: '',
@@ -62,52 +65,42 @@ export default function ContactPage() {
   // Fonction pour soumettre le formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('🚀 Soumission du formulaire démarrée');
+    console.log('📄 Données du formulaire:', formData);
+    
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
-      // Créer le contenu de l'email formaté
-      const emailSubject = `Contact Portfolio - ${formData.subject}`;
-      const emailBody = `
-Nouveau message de contact :
-
-Nom: ${formData.firstName} ${formData.lastName}
-Email: ${formData.email}
-Téléphone: ${formData.phone || 'Non renseigné'}
-Sujet: ${formData.subject}
-
-Message:
-${formData.message}
-
----
-Envoyé depuis votre formulaire de contact
-      `.trim();
-
-      // Créer le lien mailto avec toutes les données
-      const mailtoLink = `mailto:hello@joelandriantsoa.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      console.log('📡 Envoi de la requête à /api/contact...');
       
-      // Ouvrir le client email
-      window.location.href = mailtoLink;
-      
-      setSubmitStatus('success');
-      
-      // Réinitialiser le formulaire après succès
-      setTimeout(() => {
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
-        });
-        setSubmitStatus(null);
-      }, 3000);
+      // Envoyer les données à l'API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
+      console.log('📨 Réponse reçue:', response.status, response.statusText);
+      
+      const result = await response.json();
+      console.log('📋 Contenu de la réponse:', result);
+
+      if (result.success) {
+        console.log('✅ Succès - Redirection vers /contact/success');
+        // Rediriger vers la page de succès
+        router.push('/contact/success');
+      } else {
+        console.error('❌ Erreur du serveur:', result.error);
+        setSubmitStatus('error');
+      }
     } catch (error) {
-      console.error('Erreur lors de l\'envoi:', error);
+      console.error('💥 Erreur lors de l\'envoi:', error);
       setSubmitStatus('error');
     } finally {
+      console.log('🏁 Fin du processus d\'envoi');
       setIsSubmitting(false);
     }
   };
@@ -126,14 +119,9 @@ Envoyé depuis votre formulaire de contact
             <h2>Send Me a Message</h2>
             
             {/* Messages de statut */}
-            {submitStatus === 'success' && (
-              <div className={styles.successMessage}>
-                ✅ Votre client email va s&apos;ouvrir avec votre message pré-rempli !
-              </div>
-            )}
             {submitStatus === 'error' && (
               <div className={styles.errorMessage}>
-                ❌ Une erreur s&apos;est produite. Veuillez réessayer.
+                ❌ Erreur lors de l'envoi du message. Veuillez réessayer.
               </div>
             )}
 
