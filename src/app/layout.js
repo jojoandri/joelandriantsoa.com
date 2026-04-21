@@ -55,19 +55,6 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className={inter.className}>
-        {/* Composants Analytics de la branche main */}
-        <Analytics />
-        <AnalyticsDebug />
-        
-        {/* Header */}
-        <Header />
-        
-        {/* ScrollMenuButton de la branche main */}
-        <ScrollMenuButton />
-        
-        {/* Contenu principal */}
-
-      <body className={inter.className}>
         <Analytics />
         <AnalyticsDebug />
         <Header />

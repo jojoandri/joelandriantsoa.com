@@ -2,7 +2,7 @@
 const nextConfig = {
   // Optimisations pour les performances
   experimental: {
-    optimizeCss: true,
+    optimizeCss: false,
     scrollRestoration: true,
   },
   
