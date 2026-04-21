@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.scss';
 import Contact from '../../components/Contact';
-import Rounded from '../../common/RoundedButton';
 
 const slideUp = {
   initial: {
@@ -52,6 +51,7 @@ export default function ContactPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitErrorMessage, setSubmitErrorMessage] = useState('');
 
   // Fonction pour gérer les changements dans les champs
   const handleInputChange = (e) => {
@@ -70,9 +70,14 @@ export default function ContactPage() {
     
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setSubmitErrorMessage('');
+
+    let timeoutId;
 
     try {
       console.log('📡 Envoi de la requête à /api/contact...');
+      const controller = new AbortController();
+      timeoutId = setTimeout(() => controller.abort(), 15000);
       
       // Envoyer les données à l'API
       const response = await fetch('/api/contact', {
@@ -80,26 +85,39 @@ export default function ContactPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        signal: controller.signal,
         body: JSON.stringify(formData),
       });
 
       console.log('📨 Réponse reçue:', response.status, response.statusText);
-      
-      const result = await response.json();
+
+      const result = await response.json().catch(() => ({
+        success: false,
+        error: 'Réponse serveur invalide.'
+      }));
       console.log('📋 Contenu de la réponse:', result);
 
-      if (result.success) {
+      if (response.ok && result.success) {
         console.log('✅ Succès - Redirection vers /contact/success');
         // Rediriger vers la page de succès
         router.push('/contact/success');
       } else {
         console.error('❌ Erreur du serveur:', result.error);
+        setSubmitErrorMessage(result.error || 'Erreur lors de l\'envoi du message. Veuillez réessayer.');
         setSubmitStatus('error');
       }
     } catch (error) {
       console.error('💥 Erreur lors de l\'envoi:', error);
+      if (error.name === 'AbortError') {
+        setSubmitErrorMessage('La requête a expiré. Vérifiez votre connexion puis réessayez.');
+      } else {
+        setSubmitErrorMessage('Erreur réseau ou serveur indisponible. Veuillez réessayer.');
+      }
       setSubmitStatus('error');
     } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       console.log('🏁 Fin du processus d\'envoi');
       setIsSubmitting(false);
     }
@@ -121,7 +139,7 @@ export default function ContactPage() {
             {/* Messages de statut */}
             {submitStatus === 'error' && (
               <div className={styles.errorMessage}>
-                ❌ Erreur lors de l&#39;envoi du message. Veuillez réessayer.
+                ❌ {submitErrorMessage || 'Erreur lors de l\'envoi du message. Veuillez réessayer.'}
               </div>
             )}
 
@@ -203,9 +221,9 @@ export default function ContactPage() {
                 <label htmlFor="message">Message</label>
               </div>
               
-              <Rounded type="submit" disabled={isSubmitting}>
-                <p>{isSubmitting ? 'Sending...' : 'Send Message'}</p>
-              </Rounded>
+              <button type="submit" disabled={isSubmitting} className={styles.submitBtn}>
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
             </form>
           </motion.div>
 

@@ -59,18 +59,20 @@ export async function POST(request) {
 
     console.log('🚀 Configuration email détectée - Envoi réel');
 
+    const parsedPort = Number.parseInt(smtpPort || '587', 10);
+
     // Configuration SMTP pour Hostinger (ou autre hébergeur)
     const transporterConfig = {
-      host: smtpHost || 'smtp.hostinger.com', // SMTP Hostinger par défaut
-      port: parseInt(smtpPort) || 587, // Port STARTTLS
-      secure: false, // true pour port 465, false pour autres ports
+      host: smtpHost || 'smtp.hostinger.com',
+      port: Number.isNaN(parsedPort) ? 587 : parsedPort,
+      secure: parsedPort === 465,
       auth: {
         user: emailUser,
         pass: emailPassword,
       },
-      tls: {
-        rejectUnauthorized: false // Pour éviter les problèmes de certificat en dev
-      }
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     };
 
     console.log('📧 Configuration transporteur:', {
@@ -80,7 +82,10 @@ export async function POST(request) {
       user: emailUser
     });
 
-    const transporter = nodemailer.createTransporter(transporterConfig);
+    const transporter = nodemailer.createTransport(transporterConfig);
+
+    // Vérifier la connexion SMTP avant l'envoi pour une erreur plus claire
+    await transporter.verify();
 
     // Options de l'email
     const mailOptions = {
@@ -153,11 +158,19 @@ Envoyé depuis votre formulaire de contact
     });
   } catch (error) {
     console.error('💥 Erreur lors de l\'envoi de l\'email:', error);
+
+    let userMessage = 'Erreur lors de l\'envoi du message. Veuillez réessayer.';
+    if (error?.code === 'EAUTH') {
+      userMessage = 'Identifiants SMTP invalides. Vérifiez EMAIL_USER et EMAIL_PASSWORD sur Vercel.';
+    } else if (error?.code === 'ESOCKET' || error?.code === 'ETIMEDOUT') {
+      userMessage = 'Serveur SMTP injoignable ou timeout. Vérifiez SMTP_HOST/SMTP_PORT.';
+    }
+
     return NextResponse.json(
-      { 
-        success: false, 
-        error: 'Erreur lors de l\'envoi du message. Veuillez réessayer.',
-        debug: error.message
+      {
+        success: false,
+        error: userMessage,
+        debug: error?.message
       },
       { status: 500 }
     );
