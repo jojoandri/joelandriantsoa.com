@@ -24,7 +24,7 @@ export default function Contact() {
                             <Image 
                             fill={true}
                             alt={"image"}
-                            src={`/images/miniprofil.webp`}
+                            src={`/images/miniprofil.webp?v=20260421`}
                             />
                         </div>
                         <h2>Let&apos;s work</h2>
@@ -51,7 +51,7 @@ export default function Contact() {
                     <div>
                         <span>
                             <h3>Version</h3>
-                            <p>2025 © Edition</p>
+                            <p>2026 © Edition</p>
                         </span>
                        
                     </div>
@@ -59,7 +59,7 @@ export default function Contact() {
                         <span>
                             <h3>Socials</h3>
                             <div>
-                                <a href="https://www.facebook.com/synyster.joel?locale=fr_FR" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>
+                                <a href="https://www.facebook.com/synyster.joel" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>
                                     <Magnetic>
                                         <p>Facebook</p>
                                     </Magnetic>
@@ -69,7 +69,7 @@ export default function Contact() {
                                         <p>Instagram</p>
                                     </Magnetic>
                                 </a>
-                                <a href="https://mg.linkedin.com/in/joel-andriantsoa-304b21317" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>
+                                <a href="https://www.linkedin.com/in/jo%C3%ABl-andriantsoa-304b21317/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>
                                     <Magnetic>
                                         <p>Linkedin</p>
                                     </Magnetic>

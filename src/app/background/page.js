@@ -34,7 +34,7 @@ export default function Background() {
         <motion.div variants={fadeIn} className={styles.hero}>
           <div className={styles.photoContainer}>
             <Image
-              src="/images/background2.webp"
+              src="/images/background2.webp?v=20260421"
               alt="Joel Andriantsoa - Graduate"
               fill
               className={styles.photo}

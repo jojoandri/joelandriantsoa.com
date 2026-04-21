@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <motion.main variants={slideUp} initial="initial" animate="enter" className={styles.landing}>
       <Image 
-        src="/images/background.webp"
+        src="/images/background.webp?v=20260421"
         fill={true}
         alt="background"
       />
