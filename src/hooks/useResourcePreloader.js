@@ -14,7 +14,7 @@ export const useResourcePreloader = () => {
       const criticalResources = [
         // Seulement les ressources vraiment critiques
         '/fonts/NeueMontreal_Medium.otf',
-        '/images/background.jpg',
+        '/images/background.webp',
       ];
 
       let loadedCount = 0;
@@ -85,7 +85,7 @@ export const useResourcePreloader = () => {
 
       // Timeout de sécurité global plus court
       setTimeout(() => {
-        if (!signal.aborted && isLoading) {
+        if (!signal.aborted) {
           console.warn('Global preloading timeout, continuing anyway');
           setIsLoading(false);
         }
@@ -100,7 +100,7 @@ export const useResourcePreloader = () => {
         abortControllerRef.current.abort();
       }
     };
-  }, []); // Retirer isLoading des dépendances pour éviter la boucle
+  }, []);
 
   return { isLoading, progress };
 };

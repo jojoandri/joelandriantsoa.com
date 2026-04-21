@@ -121,7 +121,7 @@ export default function ContactPage() {
             {/* Messages de statut */}
             {submitStatus === 'error' && (
               <div className={styles.errorMessage}>
-                ❌ Erreur lors de l'envoi du message. Veuillez réessayer.
+                ❌ Erreur lors de l&#39;envoi du message. Veuillez réessayer.
               </div>
             )}
 
