@@ -3,18 +3,14 @@ export const projects = [
     title: "Mora Market - ecommerce & marketplace",
     description: "Mora Market is an e-commerce and marketplace platform that promotes local products and Malagasy innovation, making shopping simple and accessible. I join them as a digital marketer and performance manager You can find their website on live site.",
 
-
-    src: "moramarket.png",
-
-
-    src: "moramarket.png",
+    src: "moramarket.webp",
     link: "https://www.moramarket.mg",
     color: "#ffffff"
   },
   {
     title: "FIARO - Venture Capital",
     description: "Data Analyst – FIARO (Venture Capital Firm) Contributed to data analysis and project management initiatives to support FIARO’s investment strategies and portfolio oversight. Notably worked on developing a sectoral cartography of high-potential industries in the Vakinankaratra region, providing valuable insights to guide regional investment decisions. You can find what I did for them on live site.",
-    src: "Fiaro-venture-capital.png",
+    src: "Fiaro-venture-capital.webp",
     link: "https://joel10carto.my.canva.site/",
     color: "#ffffff"
   },

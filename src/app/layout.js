@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
         />
         <link
           rel="preload"
-          href="/images/background.jpg"
+          href="/images/background.webp"
           as="image"
         />
       </head>
