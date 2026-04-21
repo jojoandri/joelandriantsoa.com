@@ -34,18 +34,27 @@ export async function POST(request) {
     console.log('SMTP_PORT présent:', !!smtpPort);
     console.log('Environment:', process.env.NODE_ENV);
 
-    // Si les variables d'environnement ne sont pas configurées (localhost)
+    // En local, on garde un mode simulation pour faciliter les tests.
+    // En production, on doit renvoyer une erreur explicite pour éviter un faux succès.
     if (!emailUser || !emailPassword) {
-      console.log('📧 Mode simulation - Variables d\'environnement manquantes');
-      console.log('Données qui seraient envoyées:', { firstName, lastName, email, phone, subject, message });
-      
-      // Simulation d'envoi réussi pour le développement
-      return NextResponse.json({
-        success: true,
-        message: 'Message envoyé avec succès ! (Mode simulation en localhost)',
-        debug: 'Variables EMAIL_USER et EMAIL_PASSWORD non configurées',
-        data: { firstName, lastName, email, phone, subject, message }
-      });
+      if (process.env.NODE_ENV === 'development') {
+        console.log('📧 Mode simulation - Variables d\'environnement manquantes');
+        console.log('Données qui seraient envoyées:', { firstName, lastName, email, phone, subject, message });
+
+        return NextResponse.json({
+          success: true,
+          message: 'Message simulé en local (SMTP non configuré).',
+          debug: 'Configure EMAIL_USER et EMAIL_PASSWORD pour un envoi réel.'
+        });
+      }
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Configuration email manquante sur le serveur (EMAIL_USER/EMAIL_PASSWORD).'
+        },
+        { status: 500 }
+      );
     }
 
     console.log('🚀 Configuration email détectée - Envoi réel');
@@ -75,7 +84,7 @@ export async function POST(request) {
 
     // Options de l'email
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: emailUser,
       to: 'hello@joelandriantsoa.com',
       subject: `Contact Portfolio - ${subject}`,
       text: `
