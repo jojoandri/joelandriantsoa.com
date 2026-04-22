@@ -3,7 +3,7 @@ export const projects = [
     title: "Mora Market - ecommerce & marketplace",
     description: "Mora Market is an e-commerce and marketplace platform that promotes local products and Malagasy innovation, making shopping simple and accessible. I join them as a digital marketer and performance manager You can find their website on live site.",
 
-    src: "moramarket.webp?v=20260421",
+    src: "moramarket.webp?v=20260422",
     link: "https://www.moramarket.mg",
     color: "#ffffff"
   },
