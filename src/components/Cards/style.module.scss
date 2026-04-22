@@ -182,10 +182,10 @@
   }
 
   .card {
-    width: min(1100px, 98vw); // Augmenté de 950px à 1100px
+    width: min(1300px, 98vw); // Augmenté pour tablette
     height: auto;
-    min-height: 700px; // Augmenté de 600px à 700px
-    padding: 40px; // Augmenté de 35px à 40px
+    min-height: 680px; // Réduit pour limiter le blanc en bas
+    padding: 50px; // Augmenté pour tablette
 
     h2 {
       margin-bottom: 35px; // Augmenté de 30px à 35px
@@ -243,8 +243,8 @@
   .card {
     width: 100%;
     height: auto;
-    min-height: 600px; // Augmenté de 520px à 600px
-    padding: 35px; // Augmenté de 30px à 35px
+    min-height: 620px; // Réduit pour limiter le blanc en bas
+    padding: 40px; // Augmenté pour afficher comme desktop
     border-radius: 25px; // Augmenté de 20px à 25px
 
     h2 {
@@ -275,7 +275,7 @@
       }
 
       .imageContainer {
-        height: 160px; // Réduit pour plus d'espace en largeur
+        height: 250px; // Augmenté pour la plus grande carte
         border-radius: 22px;
         
         .inner {
@@ -304,8 +304,8 @@
   .card {
     width: 100%;
     height: auto;
-    min-height: 600px; // Augmenté de 550px à 600px pour plus d'espace
-    padding: 30px; // Augmenté de 25px à 30px
+    min-height: 600px; // Réduit pour limiter le blanc en bas
+    padding: 35px; // Augmenté pour afficher comme desktop
     border-radius: 22px; // Augmenté de 18px à 22px
 
     h2 {
@@ -334,7 +334,7 @@
       }
 
       .imageContainer {
-        height: 120px; // Réduit pour plus d'espace en largeur
+        height: 250px; // Augmenté pour la plus grande carte
         border-radius: 18px;
         
         .inner {
