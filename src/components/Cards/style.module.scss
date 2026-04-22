@@ -275,7 +275,7 @@
       }
 
       .imageContainer {
-        height: 200px; // Augmenté de 320px à 380px pour mobile landscape
+        height: 160px; // Réduit pour plus d'espace en largeur
         border-radius: 22px;
         
         .inner {
@@ -334,7 +334,7 @@
       }
 
       .imageContainer {
-        height: 145px; // Augmenté de 260px à 320px pour mobile portrait
+        height: 120px; // Réduit pour plus d'espace en largeur
         border-radius: 18px;
         
         .inner {
