@@ -1,12 +1,18 @@
 .roundedButton{
     border-radius: 3em;
     border: 1px solid rgb(136, 136, 136);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: 1;
     cursor: pointer;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 15px 60px 15px 60px;
+    appearance: none;
+    -webkit-appearance: none;
 
     p{
         position: relative;

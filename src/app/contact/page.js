@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.scss';
 import Contact from '../../components/Contact';
+import Rounded from '../../common/RoundedButton';
 
 const slideUp = {
   initial: {
@@ -221,9 +222,9 @@ export default function ContactPage() {
                 <label htmlFor="message">Message</label>
               </div>
               
-              <button type="submit" disabled={isSubmitting} className={styles.submitBtn}>
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
+              <Rounded type="submit" disabled={isSubmitting} className={styles.submitBtn}>
+                <p>{isSubmitting ? 'Sending...' : 'Send Message'}</p>
+              </Rounded>
             </form>
           </motion.div>
 

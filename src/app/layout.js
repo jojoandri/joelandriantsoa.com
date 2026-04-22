@@ -1,15 +1,8 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
 import Header from '../components/Header';
 import Analytics from '../components/Analytics';
 import AnalyticsDebug from '../components/AnalyticsDebug';
 import ScrollMenuButton from '../components/ScrollMenuButton';
-
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap', // Améliorer le rendu des fonts
-  preload: true
-});
 
 export const metadata = {
   title: 'Portfolio Joël Andriantsoa',
@@ -54,7 +47,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className={inter.className}>
+      <body>
         <Analytics />
         <AnalyticsDebug />
         <Header />

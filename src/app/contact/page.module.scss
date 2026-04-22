@@ -175,16 +175,21 @@
           .submitBtn {
             width: 100%;
             margin-top: 6px;
-            padding: 18px 28px;
+            padding: 24px 32px;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.45);
             background: transparent;
             color: #ffffff;
-            font-size: 1.95rem;
             font-weight: 500;
-            line-height: 1;
             cursor: pointer;
             transition: all 0.25s ease;
+
+            p {
+              margin: 0;
+              font-size: clamp(1.6rem, 3vw, 2.3rem);
+              font-weight: 500;
+              letter-spacing: -0.01em;
+            }
           }
 
           .submitBtn:hover:not(:disabled) {
@@ -477,7 +482,10 @@
             
             .submitBtn {
               padding: 15px 30px;
-              font-size: 1rem;
+
+              p {
+                font-size: 1.2rem;
+              }
             }
           }
         }
@@ -619,7 +627,10 @@
             
             .submitBtn {
               padding: 12px 25px;
-              font-size: 0.95rem;
+
+              p {
+                font-size: 1.05rem;
+              }
             }
           }
         }
@@ -763,7 +774,10 @@
             
             .submitBtn {
               padding: 10px 20px;
-              font-size: 0.9rem;
+
+              p {
+                font-size: 0.95rem;
+              }
             }
           }
         }

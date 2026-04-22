@@ -65,7 +65,7 @@
 
         &::first-letter {
           font-size: clamp(26px, 4vw, 36px); // Augmenté de 24-32px à 26-36px
-          font-family: 'Title', serif;
+          font-family: inherit;
           font-weight: bold;
           color: #333;
         }

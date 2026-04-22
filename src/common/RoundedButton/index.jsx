@@ -6,7 +6,7 @@ import Magnetic from '../Magnetic';
 
 export default function RoundedButton({children, backgroundColor="#455CE9", ...attributes}) {
 
-  const { type, ...restAttributes } = attributes;
+  const { type, className, ...restAttributes } = attributes;
   const Element = type ? 'button' : 'div';
 
   const circle = useRef(null);
@@ -33,7 +33,7 @@ export default function RoundedButton({children, backgroundColor="#455CE9", ...a
   return (
     <Magnetic>
       <Element
-        className={styles.roundedButton}
+        className={`${styles.roundedButton} ${className || ''}`.trim()}
         style={{overflow: "hidden"}}
         onMouseEnter={() => {manageMouseEnter()}}
         onMouseLeave={() => {manageMouseLeave()}}
