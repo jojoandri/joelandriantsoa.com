@@ -66,6 +66,7 @@ export default function Index() {
             color: white;
             font-weight: 300;
             letter-spacing: 0.1em;
+            pointer-events: none;
             padding: 20px;
             text-align: center;
         `;
@@ -97,9 +98,6 @@ export default function Index() {
         const overlay = createResponsiveOverlay('Background');
         document.body.appendChild(overlay);
         
-        // Désactiver le scroll
-        document.body.style.overflow = 'hidden';
-        
         // Déclencher l'animation slideUp
         requestAnimationFrame(() => {
             overlay.style.transform = 'translateY(0)';
@@ -124,7 +122,6 @@ export default function Index() {
                     if (overlay.parentNode) {
                         overlay.parentNode.removeChild(overlay);
                     }
-                    document.body.style.overflow = 'auto';
                     setIsNavigating(false);
                 }, 600);
             }, 100);
@@ -140,9 +137,6 @@ export default function Index() {
         // Utiliser la fonction utilitaire pour créer l'overlay responsive
         const overlay = createResponsiveOverlay('Contact');
         document.body.appendChild(overlay);
-        
-        // Désactiver le scroll
-        document.body.style.overflow = 'hidden';
         
         // Déclencher l'animation slideUp
         requestAnimationFrame(() => {
@@ -168,7 +162,6 @@ export default function Index() {
                     if (overlay.parentNode) {
                         overlay.parentNode.removeChild(overlay);
                     }
-                    document.body.style.overflow = 'auto';
                     setIsNavigating(false);
                 }, 600);
             }, 100);

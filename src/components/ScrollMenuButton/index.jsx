@@ -116,11 +116,11 @@ const ScrollMenuButton = () => {
       font-size: 4rem;
       font-weight: 300;
       letter-spacing: 0.1em;
+      pointer-events: none;
     `;
     
     overlay.innerHTML = '<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s;">Background</div>';
     document.body.appendChild(overlay);
-    document.body.style.overflow = 'hidden';
     
     requestAnimationFrame(() => {
       overlay.style.transform = 'translateY(0)';
@@ -141,7 +141,6 @@ const ScrollMenuButton = () => {
           if (overlay.parentNode) {
             overlay.parentNode.removeChild(overlay);
           }
-          document.body.style.overflow = 'auto';
           setIsNavigating(false);
         }, 600);
       }, 100);
@@ -172,11 +171,11 @@ const ScrollMenuButton = () => {
       font-size: 4rem;
       font-weight: 300;
       letter-spacing: 0.1em;
+      pointer-events: none;
     `;
     
     overlay.innerHTML = '<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s;">Contact</div>';
     document.body.appendChild(overlay);
-    document.body.style.overflow = 'hidden';
     
     requestAnimationFrame(() => {
       overlay.style.transform = 'translateY(0)';
@@ -197,7 +196,6 @@ const ScrollMenuButton = () => {
           if (overlay.parentNode) {
             overlay.parentNode.removeChild(overlay);
           }
-          document.body.style.overflow = 'auto';
           setIsNavigating(false);
         }, 600);
       }, 100);

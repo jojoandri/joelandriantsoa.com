@@ -23,7 +23,9 @@
 html {
   /* Améliorer le scroll sur mobile */
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
+  touch-action: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   /* Éviter le zoom sur focus mobile */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -34,15 +36,25 @@ html {
 body {
   margin: 0px;
   font-family: 'NeueMontreal', sans-serif;
-  /* Permettre le scroll normal pour voir toutes les sections */
-  overflow-x: hidden; /* Garder seulement le scroll horizontal caché */
-  overflow-y: auto;   /* Permettre le scroll vertical normal */
+  overflow: visible;
   cursor: wait;
   /* Optimiser les fonts sur mobile */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Éviter le bounce sur iOS */
   overscroll-behavior: none;
+}
+
+/* Masquer la barre de scroll sans désactiver le défilement */
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 input,

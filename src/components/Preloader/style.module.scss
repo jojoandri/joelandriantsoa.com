@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     position: fixed;
+  pointer-events: none;
     z-index: 10001; // 🚀 Z-INDEX TRÈS ÉLEVÉ pour être au-dessus du header
     background-color: #141516;
   

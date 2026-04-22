@@ -165,7 +165,7 @@
     // Améliorer l'accessibilité du scroll mobile
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior: auto;
     
     .description {
       top: 35%; // Descendu pour correspondre au nouveau positionnement
@@ -217,7 +217,7 @@
     // Optimisations mobiles avancées
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior: auto;
     
     .description {
       top: 35%; // Descendu pour correspondre au nouveau positionnement
