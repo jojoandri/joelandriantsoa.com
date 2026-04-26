@@ -47,126 +47,24 @@ export default function Index() {
         };
     }, [checkIsMobile]);
 
-    // 🚀 FONCTION UTILITAIRE POUR CRÉER L'OVERLAY RESPONSIVE
-    const createResponsiveOverlay = useCallback((text) => {
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            z-index: 9999;
-            transform: translateY(100%);
-            transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            pointer-events: none;
-            padding: 20px;
-            text-align: center;
-        `;
-        
-        // Déterminer la taille de police responsive
-        const getFontSize = () => {
-            const width = window.innerWidth;
-            if (width <= 360) return '2rem';      // Très petits écrans
-            if (width <= 480) return '2.5rem';   // Mobile portrait
-            if (width <= 768) return '3rem';     // Mobile landscape / petites tablettes
-            if (width <= 1024) return '3.5rem';  // Tablettes
-            return '4rem';                       // Desktop
-        };
-        
-        // Ajouter le texte de transition avec taille responsive
-        overlay.innerHTML = `<div style="opacity: 0; transform: translateY(20px); transition: all 0.3s ease 0.3s; font-size: ${getFontSize()}; max-width: 100%; word-wrap: break-word;">${text}</div>`;
-        
-        return overlay;
-    }, []);
-
-    // 🚀 OPTIMISATION MAJEURE : Navigation ultra-rapide avec animation slideUp
+    // Navigation fiable sans temporisation (évite les blocages de transition)
     const fastNavigateToBackground = useCallback(async () => {
         if (isNavigating) return; // Prévient les double-clics
         
         setIsNavigating(true);
         setIsMobileNavOpen(false);
-        
-        // Utiliser la fonction utilitaire pour créer l'overlay responsive
-        const overlay = createResponsiveOverlay('Background');
-        document.body.appendChild(overlay);
-        
-        // Déclencher l'animation slideUp
-        requestAnimationFrame(() => {
-            overlay.style.transform = 'translateY(0)';
-            // Animer le texte
-            setTimeout(() => {
-                const textElement = overlay.querySelector('div');
-                if (textElement) {
-                    textElement.style.opacity = '1';
-                    textElement.style.transform = 'translateY(0)';
-                }
-            }, 300);
-        });
-        
-        // Naviguer après l'animation
-        setTimeout(() => {
-            router.push('/background');
-            
-            // Nettoyer après la navigation
-            setTimeout(() => {
-                overlay.style.transform = 'translateY(-100%)';
-                setTimeout(() => {
-                    if (overlay.parentNode) {
-                        overlay.parentNode.removeChild(overlay);
-                    }
-                    setIsNavigating(false);
-                }, 600);
-            }, 100);
-        }, 800);
-    }, [router, isNavigating, createResponsiveOverlay]);
+        router.push('/background');
+        setTimeout(() => setIsNavigating(false), 250);
+    }, [router, isNavigating]);
 
     const fastNavigateToContact = useCallback(async () => {
         if (isNavigating) return; // Prévient les double-clics
         
         setIsNavigating(true);
         setIsMobileNavOpen(false);
-        
-        // Utiliser la fonction utilitaire pour créer l'overlay responsive
-        const overlay = createResponsiveOverlay('Contact');
-        document.body.appendChild(overlay);
-        
-        // Déclencher l'animation slideUp
-        requestAnimationFrame(() => {
-            overlay.style.transform = 'translateY(0)';
-            // Animer le texte
-            setTimeout(() => {
-                const textElement = overlay.querySelector('div');
-                if (textElement) {
-                    textElement.style.opacity = '1';
-                    textElement.style.transform = 'translateY(0)';
-                }
-            }, 300);
-        });
-        
-        // Naviguer après l'animation
-        setTimeout(() => {
-            router.push('/contact');
-            
-            // Nettoyer après la navigation
-            setTimeout(() => {
-                overlay.style.transform = 'translateY(-100%)';
-                setTimeout(() => {
-                    if (overlay.parentNode) {
-                        overlay.parentNode.removeChild(overlay);
-                    }
-                    setIsNavigating(false);
-                }, 600);
-            }, 100);
-        }, 800);
-    }, [router, isNavigating, createResponsiveOverlay]);
+        router.push('/contact');
+        setTimeout(() => setIsNavigating(false), 250);
+    }, [router, isNavigating]);
 
     // Fonction scroll optimisée avec useCallback
     const fastScrollToSection = useCallback((sectionId) => {
