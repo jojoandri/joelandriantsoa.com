@@ -1,8 +1,9 @@
 'use client'
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import styles from './page.module.scss';
 import Contact from '../../components/Contact';
+import { useEffect, useState } from 'react';
 
 const slideUp = {
   initial: {
@@ -27,11 +28,33 @@ const fadeIn = {
 };
 
 export default function Background() {
+  const prefersReducedMotion = useReducedMotion();
+  const [isLowPerfViewport, setIsLowPerfViewport] = useState(false);
+
+  useEffect(() => {
+    const updatePerfMode = () => {
+      setIsLowPerfViewport(window.innerWidth <= 1024);
+    };
+
+    updatePerfMode();
+    window.addEventListener('resize', updatePerfMode, { passive: true });
+
+    return () => window.removeEventListener('resize', updatePerfMode);
+  }, []);
+
+  const disableEntranceAnimations = prefersReducedMotion || isLowPerfViewport;
+  const mainMotionProps = disableEntranceAnimations
+    ? { initial: false }
+    : { variants: slideUp, initial: 'initial', animate: 'enter' };
+  const sectionMotionProps = disableEntranceAnimations
+    ? { initial: false }
+    : { variants: fadeIn, initial: 'initial', animate: 'enter' };
+
   return (
-    <motion.main variants={slideUp} initial="initial" animate="enter" className={styles.background}>
+    <motion.main {...mainMotionProps} className={styles.background}>
       <div className={styles.container}>
         {/* Section Hero avec photo */}
-        <motion.div variants={fadeIn} className={styles.hero}>
+        <motion.div {...sectionMotionProps} className={styles.hero}>
           <div className={styles.photoContainer}>
             <Image
               src="/images/background2.webp?v=20260421"
@@ -50,7 +73,7 @@ export default function Background() {
         </motion.div>
 
         {/* Section Formation */}
-        <motion.section variants={fadeIn} className={styles.education}>
+        <motion.section {...sectionMotionProps} className={styles.education}>
           <h2>University Education</h2>
           
           <div className={styles.timeline}>
@@ -93,7 +116,7 @@ export default function Background() {
         </motion.section>
 
         {/* Section Compétences */}
-        <motion.section variants={fadeIn} className={styles.skills}>
+        <motion.section {...sectionMotionProps} className={styles.skills}>
           <h2>Technical Skills</h2>
           
           <div className={styles.skillsGrid}>
@@ -130,7 +153,7 @@ export default function Background() {
         </motion.section>
 
         {/* Section Philosophie */}
-        <motion.section variants={fadeIn} className={styles.philosophy}>
+        <motion.section {...sectionMotionProps} className={styles.philosophy}>
           <h2>My Philosophy</h2>
           <div className={styles.quote}>
             <p>
