@@ -154,7 +154,7 @@
             padding: 30px;
             border-radius: 15px;
             border: 1px solid rgb(255, 255, 255); // CHANGÉ : bordure bleue
-            backdrop-filter: blur(28px);
+            backdrop-filter: blur(6px);
             transition: all 0.3s ease; // AJOUTÉ : transition
             
             &:hover {
@@ -200,7 +200,7 @@
           padding: 40px 30px;
           border-radius: 20px;
           // border: 1px solid rgba(69, 92, 233, 0.3); // Bordure de la même couleur
-          backdrop-filter: blur(10px);
+          backdrop-filter: blur(4px);
           text-align: center;
           transition: all 0.3s ease;
           // box-shadow: 0 8px 32px rgba(69, 92, 233, 0.25); // Ombre bleue
@@ -255,7 +255,7 @@
         padding: 60px 40px;
         border-radius: 25px;
         border: 1px solid rgba(215, 216, 225, 0.15); // CHANGÉ : bordure bleue
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(4px);
         max-width: 800px;
         margin: 0 auto;
         position: relative;
@@ -356,6 +356,24 @@
 @media (max-width: 1024px) {
   .background {
     padding: 80px 0 0 0; // Suppression du padding-bottom
+
+    // Réduit les effets GPU coûteux sur tablette/mobile
+    .container {
+      .education .timeline .timelineItem .content,
+      .skills .skillsGrid .skillCategory,
+      .philosophy .quote {
+        backdrop-filter: none;
+      }
+
+      .education .timeline .timelineItem::before {
+        box-shadow: none;
+      }
+
+      .skills .skillsGrid .skillCategory:hover,
+      .philosophy .quote {
+        box-shadow: none;
+      }
+    }
     
     .container {
       padding: 0 30px;
