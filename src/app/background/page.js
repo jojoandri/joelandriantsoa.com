@@ -39,6 +39,8 @@ export default function Background() {
               fill
               className={styles.photo}
               priority
+              unoptimized
+              sizes="(max-width: 768px) 280px, (max-width: 1024px) 320px, 400px"
             />
           </div>
           <div className={styles.heroText}>
