@@ -12,9 +12,9 @@ export const useResourcePreloader = () => {
       const { signal } = abortControllerRef.current;
 
       const criticalResources = [
-        // Seulement les ressources vraiment critiques
+        // Ne précharger que les polices critiques — images lourdes seront lazy-loaded
         '/fonts/NeueMontreal_Medium.otf',
-        '/images/background.webp',
+        '/fonts/Neglige.otf',
       ];
 
       let loadedCount = 0;

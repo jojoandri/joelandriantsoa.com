@@ -112,9 +112,13 @@ export default function Home() {
   return (
     <motion.main variants={slideUp} initial="initial" animate="enter" className={styles.landing}>
       <Image 
-        src="/images/background.webp?v=20260421"
+        src="/images/background.small.webp?v=20260421"
         fill={true}
         alt="background"
+        priority={true}
+        sizes="100vw"
+        quality={60}
+        style={{ objectFit: 'cover', objectPosition: 'center' }}
       />
       <div className={styles.sliderContainer}>
         <div ref={slider} className={styles.slider}>

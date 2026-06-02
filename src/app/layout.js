@@ -40,11 +40,7 @@ export default function RootLayout({ children }) {
           type="font/otf"
           crossOrigin=""
         />
-        <link
-          rel="preload"
-          href="/images/background.webp?v=20260421"
-          as="image"
-        />
+        {/* background image handled by next/image with priority and optimized sizes */}
       </head>
 
       <body>

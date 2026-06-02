@@ -1,13 +1,16 @@
 'use client';
 import styles from './page.module.scss'
 import { useEffect, useState } from 'react'
-import { AnimatePresence } from 'framer-motion';
-import Preloader from '../components/Preloader';
-import Landing from '../components/Landing';
-import CardsContainer from '../components/CardsContainer';
+import dynamic from 'next/dynamic';
+
+// Dynamic imports to reduce initial JS bundle
+const AnimatePresence = dynamic(() => import('framer-motion').then(mod => mod.AnimatePresence), { ssr: false });
+const Preloader = dynamic(() => import('../components/Preloader'), { ssr: false });
+const Landing = dynamic(() => import('../components/Landing'), { ssr: false });
+const CardsContainer = dynamic(() => import('../components/CardsContainer'), { ssr: false });
+const Description = dynamic(() => import('../components/Description'), { ssr: false });
+const Contact = dynamic(() => import('../components/Contact'), { ssr: false });
 import { projects } from '../data';
-import Description from '../components/Description';
-import Contact from '../components/Contact';
 
 export default function Home() {
 
