@@ -89,11 +89,11 @@ export default function Home() {
       })
     };
     
-    gsap.to(slider.current, {
-      scrollTrigger: scrollTriggerConfig,
-      x: scrollConfig.slideDistance,
-      ease: isMobile ? "power2.out" : "none"
-    });
+    // Use ScrollTrigger only for scroll direction/updates and
+    // avoid animating the slider with GSAP to prevent conflicts
+    // with the manual requestAnimationFrame loop which sets
+    // `xPercent` on the inner text elements.
+    ScrollTrigger.create(scrollTriggerConfig);
     
     // Démarrer l'animation avec un petit délai pour s'assurer que tout est prêt
     setTimeout(() => {
