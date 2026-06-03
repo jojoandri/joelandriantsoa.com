@@ -5,8 +5,6 @@
   justify-content: center;
   height: 100vh;
   overflow: hidden;
-  opacity: 0;
-  animation: heroFadeIn 320ms ease-out forwards;
   // Améliorer l'accessibilité du scroll sur mobile
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
@@ -37,7 +35,6 @@
     display: flex;
     // Améliorer les performances sur mobile
     will-change: transform;
-    animation: heroMarquee 24s linear infinite;
 
     p {
       margin: 10px;
@@ -322,12 +319,7 @@
   
   // Améliorer l'accessibilité pour les utilisateurs qui préfèrent moins d'animation
   @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    opacity: 1;
-
     .slider {
-      animation: none;
-
       p {
         transform: none;
       }
@@ -383,23 +375,5 @@
     .sliderContainer {
       top: calc(100vh - 70px);
     }
-  }
-}
-
-@keyframes heroMarquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-100%, 0, 0);
-  }
-}
-
-@keyframes heroFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
