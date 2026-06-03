@@ -15,18 +15,17 @@ const CardsContainer = ({ projects }) => {
       const cards = containerRef.current?.querySelectorAll('[data-gsap-card]') ?? [];
 
       gsap.fromTo(cards, {
-        y: 48,
-        autoAlpha: 0
+        y: 36
       }, {
         y: 0,
-        autoAlpha: 1,
-        duration: 0.9,
+        duration: 0.7,
         ease: 'power3.out',
-        stagger: 0.18,
+        stagger: 0.12,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 72%',
-          toggleActions: 'play none none reverse'
+          once: true,
+          toggleActions: 'play none none none'
         }
       });
     }, containerRef);
