@@ -19,6 +19,7 @@ const CardsContainer = ({ projects }) => {
       }, {
         y: 0,
         duration: 0.7,
+        force3D: true,
         ease: 'power3.out',
         stagger: 0.12,
         scrollTrigger: {

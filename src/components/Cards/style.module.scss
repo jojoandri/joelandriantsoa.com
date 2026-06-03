@@ -125,6 +125,10 @@
         // Assurer que les médias remplissent complètement le conteneur
         min-width: 100%;
         min-height: 100%;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        will-change: transform, opacity;
       }
 
       .video {

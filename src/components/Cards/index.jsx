@@ -34,7 +34,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
         setIsInView(true);
         io.disconnect();
       }
-    }, { threshold: 0.25 });
+    }, { rootMargin: '400px 0px', threshold: 0.01 });
 
     io.observe(container.current);
 
@@ -111,10 +111,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
           </div>
 
           <div className={styles.imageContainer}>
-            <div 
-              className={styles.inner}
-              // Supprimer l'animation d'image pour un scroll précis
-            >
+            <div className={styles.inner}>
               {video ? (
                 <video
                   ref={videoRef}
@@ -122,8 +119,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
                   playsInline
                   className={styles.video}
                   controls={isMobile}
-                  preload={isInView ? 'metadata' : 'none'}
-                  poster={`/images/${src || 'miniprofil.webp'}`}
+                  preload={i < 2 ? 'auto' : (isInView ? 'auto' : 'metadata')}
                   style={{
                     width: '100%',
                     height: '100%',
@@ -131,12 +127,8 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
                     objectPosition: 'center'
                   }}
                 >
-                  {isInView && (
-                    <>
-                      <source src={`/videos/${video.replace(/\.mp4$/i, '.webm')}`} type="video/webm" />
-                      <source src={`/videos/${video}`} type="video/mp4" />
-                    </>
-                  )}
+                  <source src={`/videos/${video.replace(/\.mp4$/i, '.webm')}`} type="video/webm" />
+                  <source src={`/videos/${video}`} type="video/mp4" />
                 </video>
               ) : src ? (
                 <Image
@@ -144,7 +136,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
                   src={`/images/${src}`}
                   alt={title}
                   sizes={isMobile ? "100vw" : "(max-width: 1024px) 100vw, 50vw"}
-                  priority={i < 2} // Prioriser les premières images
+                  priority={i < 2}
                   style={{
                     objectFit: 'cover',
                     objectPosition: 'center'
