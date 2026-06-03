@@ -93,26 +93,6 @@ export default function Index() {
     const handleContactClick = useCallback(() => fastNavigateToContact(), [fastNavigateToContact]);
     const handleLogoClick = useCallback(() => router.push('/'), [router]);
 
-    // 🚀 PREFETCH AUTOMATIQUE pour améliorer les performances
-    useEffect(() => {
-        // Prefetch les pages en arrière-plan pour une navigation instantanée
-        const prefetchPages = async () => {
-            try {
-                await Promise.all([
-                    router.prefetch('/background'),
-                    router.prefetch('/contact')
-                ]);
-            } catch (error) {
-                console.error('Prefetch error:', error);
-            }
-        };
-        
-        // Délai de 1 seconde pour permettre au composant de se charger d'abord
-        const timeoutId = setTimeout(prefetchPages, 1000);
-        
-        return () => clearTimeout(timeoutId);
-    }, [router]);
-
     const toggleMobileNav = useCallback(() => {
         setIsMobileNavOpen(prev => !prev);
     }, []);

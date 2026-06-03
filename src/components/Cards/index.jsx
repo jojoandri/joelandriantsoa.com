@@ -11,6 +11,7 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
   const lastTimeRef = useRef(0); // pour mémoriser le temps de pause
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
   // Détecter la taille de l'écran
   useEffect(() => {
@@ -23,6 +24,22 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
+
+  // Lazy-load vidéo: définir la source seulement quand la carte entre dans le viewport
+  useEffect(() => {
+    if (!video || !container.current) return;
+
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        io.disconnect();
+      }
+    }, { threshold: 0.25 });
+
+    io.observe(container.current);
+
+    return () => io.disconnect();
+  }, [video]);
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -52,31 +69,29 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
         const vid = currentVideo;
 
         if (entry.isIntersecting) {
-          // Reprendre là où on s'était arrêté
           vid.currentTime = lastTimeRef.current || 0;
-          if (!isMobile) { // Éviter l'autoplay sur mobile pour économiser la batterie
-            vid.play();
+          if (!isMobile) {
+            vid.play().catch(() => {});
           }
         } else {
-          // Sauvegarder le moment avant de sortir
           lastTimeRef.current = vid.currentTime;
           vid.pause();
         }
       },
       {
-        threshold: isMobile ? 0.3 : 0.6, // Seuil plus bas sur mobile
+        threshold: isMobile ? 0.3 : 0.6,
       }
     );
 
-    if (currentVideo) observer.observe(currentVideo);
+    observer.observe(currentVideo);
 
     return () => {
-      if (currentVideo) observer.unobserve(currentVideo);
+      observer.unobserve(currentVideo);
     };
   }, [video, isMobile]);
 
   return (
-    <div ref={container} className={`${styles.cardContainer} ${isLastCard ? styles.lastCard : ''}`}>
+    <div ref={container} data-gsap-card className={`${styles.cardContainer} ${isLastCard ? styles.lastCard : ''}`}>
       <div 
         style={{ 
           backgroundColor: color,
@@ -103,19 +118,26 @@ const Card = ({ i , title, description, src, video, link, color, range = [0, 1],
               {video ? (
                 <video
                   ref={videoRef}
-                  src={`/videos/${video}`}
                   muted
                   playsInline
                   className={styles.video}
-                  controls={isMobile} // Ajouter les contrôles sur mobile
-                  preload={isMobile ? "metadata" : "auto"} // Charger moins de données sur mobile
+                  controls={isMobile}
+                  preload={isInView ? 'metadata' : 'none'}
+                  poster={`/images/${src || 'miniprofil.webp'}`}
                   style={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
                     objectPosition: 'center'
                   }}
-                />
+                >
+                  {isInView && (
+                    <>
+                      <source src={`/videos/${video.replace(/\.mp4$/i, '.webm')}`} type="video/webm" />
+                      <source src={`/videos/${video}`} type="video/mp4" />
+                    </>
+                  )}
+                </video>
               ) : src ? (
                 <Image
                   fill

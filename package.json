@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "optimize-images": "next-optimized-images",
-    "prestart": "npm run build"
+    "prestart": "npm run build",
+    "convert-videos": "powershell -ExecutionPolicy Bypass -File convert-videos-to-webm.ps1",
+    "resize-background": "node scripts/resize-background.js"
   },
   "dependencies": {
     "eslint": "8.45.0",
@@ -20,6 +22,7 @@
     "nodemailer": "^7.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.34.5",
     "split-type": "^0.3.4"
   },
   "devDependencies": {

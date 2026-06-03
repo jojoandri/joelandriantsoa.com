@@ -1,8 +1,21 @@
 import './globals.css';
-import Header from '../components/Header';
+import dynamic from 'next/dynamic';
 import Analytics from '../components/Analytics';
-import AnalyticsDebug from '../components/AnalyticsDebug';
-import ScrollMenuButton from '../components/ScrollMenuButton';
+
+const Header = dynamic(() => import('../components/Header'), {
+  ssr: false,
+  loading: () => null,
+});
+
+const AnalyticsDebug = dynamic(() => import('../components/AnalyticsDebug'), {
+  ssr: false,
+  loading: () => null,
+});
+
+const ScrollMenuButton = dynamic(() => import('../components/ScrollMenuButton'), {
+  ssr: false,
+  loading: () => null,
+});
 
 export const metadata = {
   title: 'Portfolio Joël Andriantsoa',
@@ -40,16 +53,12 @@ export default function RootLayout({ children }) {
           type="font/otf"
           crossOrigin=""
         />
-        <link
-          rel="preload"
-          href="/images/background.webp?v=20260421"
-          as="image"
-        />
+        {/* background image handled by next/image with priority and optimized sizes */}
       </head>
 
       <body>
         <Analytics />
-        <AnalyticsDebug />
+        {process.env.NODE_ENV !== 'production' && <AnalyticsDebug />}
         <Header />
         <ScrollMenuButton />
 
