@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import styles from './style.module.scss'
-import { useRef, useLayoutEffect, useCallback, useState, useEffect } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { slideUp } from './animation';
@@ -58,7 +58,7 @@ export default function Home() {
     animationFrameId.current = requestAnimationFrame(animate);
   }, [isClient, getScrollConfig]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isClient) return;
     
     gsap.registerPlugin(ScrollTrigger);
