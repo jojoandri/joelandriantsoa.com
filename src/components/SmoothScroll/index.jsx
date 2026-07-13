@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
@@ -9,9 +9,19 @@ import { usePathname } from 'next/navigation';
 export default function SmoothScroll({ children }) {
   const smootherRef = useRef(null);
   const pathname = usePathname();
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(hasTouch);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+    if (isTouchDevice) {
+      return undefined;
+    }
 
     if (!smootherRef.current) {
       smootherRef.current = ScrollSmoother.create({
@@ -19,8 +29,8 @@ export default function SmoothScroll({ children }) {
         content: '#smooth-content',
         smooth: 0.75,
         effects: true,
-        smoothTouch: 0.1,
         normalizeScroll: true,
+        ignoreMobileResize: true,
       });
     }
 
@@ -30,9 +40,14 @@ export default function SmoothScroll({ children }) {
         smootherRef.current = null;
       }
     };
-  }, []);
+  }, [isTouchDevice]);
 
   useEffect(() => {
+    if (isTouchDevice) {
+      window.scrollTo(0, 0);
+      return undefined;
+    }
+
     const frameId = requestAnimationFrame(() => {
       const smoother = ScrollSmoother.get();
 
@@ -47,7 +62,11 @@ export default function SmoothScroll({ children }) {
     });
 
     return () => cancelAnimationFrame(frameId);
-  }, [pathname]);
+  }, [pathname, isTouchDevice]);
+
+  if (isTouchDevice) {
+    return children;
+  }
 
   return (
     <div id="smooth-wrapper">
