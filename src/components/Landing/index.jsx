@@ -14,6 +14,7 @@ export default function Home() {
   const xPercent = useRef(0);
   const direction = useRef(-1);
   const animationFrameId = useRef(null);
+  const scrollTriggerRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
   const { isMobile, isTablet, isTouchDevice, getScrollConfig } = useResponsiveScroll();
 
@@ -59,7 +60,11 @@ export default function Home() {
     if (animationFrameId.current) {
       cancelAnimationFrame(animationFrameId.current);
     }
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+    if (scrollTriggerRef.current) {
+      scrollTriggerRef.current.kill();
+      scrollTriggerRef.current = null;
+    }
 
     xPercent.current = 0;
     direction.current = -1;
@@ -77,7 +82,7 @@ export default function Home() {
       })
     };
 
-    ScrollTrigger.create(scrollTriggerConfig);
+    scrollTriggerRef.current = ScrollTrigger.create(scrollTriggerConfig);
 
     setTimeout(() => {
       animationFrameId.current = requestAnimationFrame(animate);
@@ -87,7 +92,10 @@ export default function Home() {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
     };
   }, [animate, isClient, isMobile, isTouchDevice, getScrollConfig]);
   

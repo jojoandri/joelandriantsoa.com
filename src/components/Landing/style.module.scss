@@ -321,6 +321,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slider {
       p {
+        animation: none;
         transform: none;
       }
     }

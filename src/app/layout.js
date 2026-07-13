@@ -1,6 +1,7 @@
 import './globals.css';
 import dynamic from 'next/dynamic';
 import Analytics from '../components/Analytics';
+import SmoothScroll from '../components/SmoothScroll';
 
 const Header = dynamic(() => import('../components/Header'), {
   ssr: false,
@@ -62,7 +63,7 @@ export default function RootLayout({ children }) {
         <Header />
         <ScrollMenuButton />
 
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
