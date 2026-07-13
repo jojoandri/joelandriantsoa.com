@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './style.module.scss';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 const ScrollMenuButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -121,6 +122,13 @@ const ScrollMenuButton = () => {
     requestAnimationFrame(() => {
       const element = document.getElementById(sectionId);
       if (element) {
+        const smoother = ScrollSmoother.get();
+
+        if (smoother) {
+          smoother.scrollTo(element, true, 'top top');
+          return;
+        }
+
         element.scrollIntoView({ 
           behavior: 'smooth',
           block: 'start'

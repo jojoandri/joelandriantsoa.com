@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic';
 import { AnimatePresence } from 'framer-motion';
 import Preloader from '../components/Preloader';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 import Landing from '../components/Landing';
 const CardsContainer = dynamic(() => import('../components/CardsContainer'), { ssr: false });
@@ -18,7 +19,14 @@ export default function Home() {
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
       document.body.style.cursor = 'default';
-      window.scrollTo(0, 0);
+
+      const smoother = ScrollSmoother.get();
+
+      if (smoother) {
+        smoother.scrollTo(0, false);
+      } else {
+        window.scrollTo(0, 0);
+      }
     }, 3400);
 
     return () => clearTimeout(timeoutId);

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import styles from './style.module.scss';
 import { usePathname, useRouter } from 'next/navigation';
 import Magnetic from '../../common/Magnetic';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 
 export default function Index() {
@@ -79,6 +80,13 @@ export default function Index() {
         requestAnimationFrame(() => {
             const element = document.getElementById(sectionId);
             if (element) {
+                const smoother = ScrollSmoother.get();
+
+                if (smoother) {
+                    smoother.scrollTo(element, true, 'top top');
+                    return;
+                }
+
                 element.scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
