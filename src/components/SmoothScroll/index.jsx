@@ -17,7 +17,7 @@ export default function SmoothScroll({ children }) {
       smootherRef.current = ScrollSmoother.create({
         wrapper: '#smooth-wrapper',
         content: '#smooth-content',
-        smooth: 1.1,
+        smooth: 0.75,
         effects: true,
         smoothTouch: 0.1,
         normalizeScroll: true,
